@@ -1,0 +1,28 @@
+:root {
+  --main-font-family: "Manrope", sans-serif;
+
+  //s
+  --font-size-s: 14px;
+  --fon-line-s: 16px;
+  --font-s: var(--font-size-s) / var(--fon-line-s) var(--main-font-family);
+
+  //m
+  --font-size-m: 16px;
+  --fon-line-m: 18px;
+  --font-m: var(--font-size-m) / var(--fon-line-m) var(--main-font-family);
+
+  //l
+  --font-size-l: 18px;
+  --fon-line-l: 20px;
+  --font-l: var(--font-size-l) / var(--fon-line-l) var(--main-font-family);
+
+  //xl
+  --font-size-xl: 20px;
+  --fon-line-xl: 22px;
+  --font-xl: var(--font-size-xl) / var(--fon-line-xl) var(--main-font-family);
+
+  //xxl
+  --font-size-xxl: 36px;
+  --fon-line-xxl: 38px;
+  --font-xxl: var(--font-size-xxl) / var(--fon-line-xxl) var(--main-font-family);
+}

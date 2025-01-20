@@ -3,5 +3,9 @@
   "tabWidth": 2,
   "singleQuote": false,
   "printWidth": 100,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "importOrder": ["<THIRD_PARTY_IMPORTS>", "^src/", "^../(.*)", "^./(.*)"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }
