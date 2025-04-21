@@ -2,9 +2,9 @@ import { Button, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { auth, googleProvider } from "../../../config/firebase";
-import { useAuthContext } from "../../../features/Auth/authContext";
-import { UserData } from "../../../shared/types/common";
+import { auth, googleProvider } from "../../config/firebase";
+import { useAuthContext } from "../../features/Auth/authContext";
+import { UserData } from "../../shared/types/common";
 
 import st from "./Login.module.scss";
 

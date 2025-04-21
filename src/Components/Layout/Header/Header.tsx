@@ -3,9 +3,9 @@ import { Header as AntdHeader } from "antd/es/layout/layout";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { auth } from "../../../config/firebase";
-import { useLogin } from "../../../entities/user/lib/hooks/useLogin";
 import { useAuthContext } from "../../../features/Auth/authContext";
+
+import cls from "./Header.module.scss";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -35,17 +35,10 @@ export const Header = () => {
   // };
 
   return (
-    <AntdHeader
-      style={{
-        backgroundColor: "#74afe7",
-        color: "#fff",
-        fontSize: "30px",
-        textTransform: "uppercase",
-        textAlign: "center"
-      }}
-    >
+    <AntdHeader className={cls.header}>
       Kiroku
       {user && <Button onClick={handleLogout}>Logout</Button>}
+      <div className={cls.userName}>{user && user.name}</div>
     </AntdHeader>
   );
 };

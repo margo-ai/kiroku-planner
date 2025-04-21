@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #74afe7;
+  color: #fff;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.userName {
+  font: var(--font-m);
+}

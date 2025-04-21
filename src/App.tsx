@@ -4,27 +4,28 @@ import { ReactNode, useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import { Header } from "./Components/Layout/Header/Header";
-import { Home } from "./Components/Pages/Home";
-import { Login } from "./Components/Pages/Login";
-import { Registration } from "./Components/Pages/Registration";
+import { Home } from "./Pages/Home";
+import { Login } from "./Pages/Login";
+import { Registration } from "./Pages/Registration";
+import AppRouter from "./app/providers/router/ui/AppRouter";
 import AuthProvider from "./features/Auth/AuthProvider";
 import { useAuthContext } from "./features/Auth/authContext";
 
-const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const { loading } = useAuthContext();
-  const userUid = localStorage.getItem("uid");
+// const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+//   const { loading } = useAuthContext();
+//   const userUid = localStorage.getItem("uid");
 
-  if (loading) {
-    return <div>LOADING</div>;
-  }
-  console.log(userUid, loading);
+//   if (loading) {
+//     return <div>LOADING</div>;
+//   }
+//   console.log(userUid, loading);
 
-  if (userUid) {
-    return children;
-  }
+//   if (userUid) {
+//     return children;
+//   }
 
-  return <Navigate to="/login" />;
-};
+//   return <Navigate to="/login" />;
+// };
 
 function App() {
   const navigate = useNavigate();
@@ -57,43 +58,7 @@ function App() {
         <Header />
 
         <Content className="content" style={{ color: "#fff" }}>
-          <Routes>
-            <Route
-              index
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/login" element={userUid ? <Navigate replace to="/" /> : <Login />} />
-            <Route
-              path="/registration"
-              element={userUid ? <Navigate replace to="/" /> : <Registration />}
-            />
-            <Route
-              path="/boards"
-              element={
-                <ProtectedRoute>
-                  <div>
-                    BOARDS<Button onClick={() => navigate("/")}>TO HOME</Button>
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/lalala"
-              element={
-                <ProtectedRoute>
-                  <div>
-                    LALALA<Button onClick={() => navigate("/")}>TO HOME</Button>
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<div>error</div>} />
-          </Routes>
+          <AppRouter />
         </Content>
       </Container>
     </AuthProvider>

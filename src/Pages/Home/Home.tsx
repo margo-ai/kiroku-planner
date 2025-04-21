@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { useNavigate } from "react-router";
 
-import { useUserStore } from "../../../entities/user/model/userStore";
+import { useUserStore } from "../../entities/user/model/userStore";
 
 export const Home = () => {
   const currentUser = useUserStore((state) => state.currentUser);
