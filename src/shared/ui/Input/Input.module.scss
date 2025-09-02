@@ -1,0 +1,61 @@
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 40px;
+  padding: 8px 16px;
+  border: 2px solid var(--icon-color);
+  position: relative;
+}
+
+.focused {
+  border: 2px solid var(--accent-color);
+
+  .addonLeft svg,
+  .addonRight svg {
+    color: var(--accent-color);
+  }
+}
+
+.withAddonLeft {
+  padding-left: 8px;
+}
+
+.s {
+  height: 32px;
+}
+
+.m {
+  height: 38px;
+}
+
+.l {
+  height: 44px;
+}
+
+.input {
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  color: var(--text-color);
+  font: inherit;
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important; /* цвет фона */
+    -webkit-text-fill-color: var(--text-color) !important; /* цвет текста */
+    transition: background-color 5000s ease-in-out 0s; /* чтобы анимация не мигала */
+  }
+
+  &::placeholder {
+    color: var(--hint-color);
+  }
+}
+
+.error {
+  position: absolute;
+  bottom: -20px;
+  color: var(--cancel-color);
+}

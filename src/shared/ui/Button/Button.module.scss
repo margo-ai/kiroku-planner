@@ -1,0 +1,66 @@
+.button {
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:not(.disabled):not(.clear):hover,
+  &:not(.disabled):not(.clear):focus {
+    opacity: 0.8;
+  }
+}
+
+.clear {
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.filled {
+  background: var(--bg-color);
+  border: none;
+  outline: none;
+  border-radius: 34px;
+}
+
+.outline {
+  background: none;
+  border-radius: 34px;
+
+  &:hover {
+    border: 2px solid var(--accent-color);
+  }
+
+  &.normal {
+    border: 2px solid var(--icon-color);
+  }
+
+  &.error {
+    border: 2px solid var(--cancel-color);
+  }
+
+  &.success {
+    border: 2px solid var(--save-color);
+  }
+}
+
+.m {
+  font: var(--font-m);
+}
+
+.l {
+  font: var(--font-l);
+}
+
+.xl {
+  font: var(--font-xl);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
