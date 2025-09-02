@@ -1,100 +1,92 @@
-import { Button, Input } from "antd";
-import { useEffect, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 
-import { auth, googleProvider } from "../../config/firebase";
-import { useAuthContext } from "../../features/Auth/authContext";
-import { UserData } from "../../shared/types/common";
+import { Button } from "@/shared/ui/Button";
+import { Input } from "@/shared/ui/Input";
 
-import st from "./Login.module.scss";
+import { useAuthContext } from "../../features/AuthForm/model/services/authContext";
+
+import cls from "./Login.module.scss";
+
+type Inputs = {
+  email: string;
+  password: string;
+};
+
+const schema = yup
+  .object({
+    email: yup.string().email("Введите корректный email").required("Email обязателен"),
+    password: yup.string().min(8, "Минимум 8 символов").required("Пароль обязателен")
+  })
+  .required();
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const userUid = localStorage.getItem("uid");
-
-  const { user, signIn, signInWithGoogle, loading } = useAuthContext();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: "",
+      password: ""
+    }
+  });
+  const { user, signIn, error } = useAuthContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(userUid);
-  }, [userUid]);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { email, password } = data;
 
-  if (user) {
-    navigate(-1);
+    await signIn(email, password);
+  };
+
+  if (error) {
+    return <>произошла ошибка {error}</>;
   }
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
-    signIn(email, password)
-      .then(({ user }) => {
-        console.log(user);
-
-        const userData: UserData = {
-          uid: user.uid,
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL
-        };
-
-        localStorage.setItem("uid", userData.uid);
-        navigate("/");
-      })
-      .catch((error) => console.error(error));
-  };
-
-  const handleSignInWithGoogle = () => {
-    signInWithGoogle(auth, googleProvider)
-      .then(({ user }) => {
-        console.log(user);
-
-        const userData: UserData = {
-          uid: user.uid,
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL
-        };
-
-        localStorage.setItem("uid", userData.uid);
-        navigate("/");
-      })
-      .catch((error) => console.error(error));
-  };
-
-  if (loading) {
-    return <>LOADING</>;
+  if (user) {
+    navigate("/");
   }
 
   return (
-    <form name="Auth form" className={st.form} onSubmit={handleSubmit}>
-      <label htmlFor="User email">
-        Email
-        <Input
-          placeholder="Email..."
-          type="email"
-          id="User email"
-          onChange={(e) => setEmail(e.target.value)}
+    <div className={cls.formWrapper}>
+      <form className={cls.form} name="Auth form" onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <Input
+              {...field}
+              autoFocus
+              placeholder="Введите почту"
+              validateErrorMessage={errors.email?.message}
+            />
+          )}
         />
-      </label>
-      <label htmlFor="User password">
-        Password
-        <Input
-          placeholder="Password..."
-          type="password"
-          id="User password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
 
-      <Button htmlType="submit" type="primary">
-        Sign In
+        <Controller
+          control={control}
+          name="password"
+          render={({ field }) => (
+            <Input
+              {...field}
+              placeholder="Введите пароль"
+              type="password"
+              validateErrorMessage={errors.password?.message}
+            />
+          )}
+        />
+
+        <Button type="submit" variant="filled">
+          Войти
+        </Button>
+      </form>
+      <Button variant="clear" onClick={() => navigate("/registration")}>
+        Вы у нас впервые?
       </Button>
-      <button onClick={() => navigate("/registration")}>Вы у нас впервые?</button>
-      <Button type="primary" onClick={handleSignInWithGoogle}>
-        Sign In With Google
-      </Button>
-    </form>
+    </div>
   );
 };

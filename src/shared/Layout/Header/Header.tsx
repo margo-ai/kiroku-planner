@@ -1,24 +1,24 @@
 import { Button } from "antd";
-import { Header as AntdHeader } from "antd/es/layout/layout";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuthContext } from "../../../features/Auth/authContext";
+import { useAuthContext } from "../../../features/AuthForm/model/services/authContext";
+import { Stack } from "../../ui/Stack";
 
 import cls from "./Header.module.scss";
+import { ThemeSwitcher } from "@/features/ThemeSwitcher";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const { logOut, user } = useAuthContext();
+  const { logOut, user, loading } = useAuthContext();
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
+    console.log(user, loading);
+  }, [user, loading]);
 
   const handleLogout = () => {
     logOut()
       .then(() => {
-        localStorage.removeItem("uid");
         navigate("/login");
       })
       .catch((error) => console.error(error));
@@ -35,10 +35,13 @@ export const Header = () => {
   // };
 
   return (
-    <AntdHeader className={cls.header}>
-      Kiroku
-      {user && <Button onClick={handleLogout}>Logout</Button>}
-      <div className={cls.userName}>{user && user.name}</div>
-    </AntdHeader>
+    <header>
+      <Stack fullHeight className={cls.header} justify="center">
+        Kiroku
+        {user && <Button onClick={handleLogout}>Logout</Button>}
+        <div className={cls.userName}>{user && user.name}</div>
+        <ThemeSwitcher />
+      </Stack>
+    </header>
   );
 };

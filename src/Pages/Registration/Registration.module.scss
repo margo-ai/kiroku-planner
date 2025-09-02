@@ -1,24 +1,19 @@
-.authPage {
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-
-  // height: 100%;
-}
-
-.form {
+.formWrapper {
   margin: 0 auto;
   margin-top: 100px;
   max-width: 600px;
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+  background-color: var(--dark-bg-color);
+  font: var(--font-s);
+  padding: 30px;
+}
+
+.form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 30px;
-
-  border: 2px solid #fff;
-  border-radius: 20px;
-
-  backdrop-filter: blur(10px);
+  gap: 22px;
+  margin-bottom: 15px;
 }
 
 .signInButton {

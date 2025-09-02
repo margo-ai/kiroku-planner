@@ -1,93 +1,120 @@
-import { Button, Input } from "antd";
-import { updateProfile } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 
-import { auth } from "../../config/firebase";
-import { useAuthContext } from "../../features/Auth/authContext";
+import { useAuthContext } from "../../features/AuthForm/model/services/authContext";
 
-import st from "./Registration.module.scss";
+import cls from "./Registration.module.scss";
+import { Button } from "@/shared/ui/Button";
+import { Input } from "@/shared/ui/Input";
+
+type Inputs = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+const schema = yup
+  .object({
+    email: yup.string().email("Введите корректный email").required("Email обязателен"),
+    password: yup.string().min(8, "Минимум 8 символов").required("Пароль обязателен"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "Пароли не совпадают")
+      .required("Пароль обязателен")
+  })
+  .required();
 
 export const Registration = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const currentUser = auth.currentUser;
-
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: ""
+    }
+  });
+  const { signUp, user, error } = useAuthContext();
   const navigate = useNavigate();
 
-  const { signUp, user, loading } = useAuthContext();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { email, password } = data;
 
-  const updateData = async () => {
-    if (currentUser) {
-      await updateProfile(currentUser, {
-        displayName: "Tony Stark",
-        photoURL:
-          "https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/tony_stark.png"
-      });
-    }
+    await signUp(email, password);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    signUp(email, password)
-      .then(({ user }) => {
-        updateProfile(user, {
-          displayName: name
-        });
-        localStorage.setItem("uid", user.uid);
-        navigate("/");
-        console.log(user);
-      })
-      .catch((error) => console.error(error));
-  };
+  if (error) {
+    return <>произошла ошибка {error}</>;
+  }
+
+  // const updateData = async () => {
+  //   if (currentUser) {
+  //     await updateProfile(currentUser, {
+  //       displayName: "Tony Stark",
+  //       photoURL:
+  //         "https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/tony_stark.png"
+  //     });
+  //   }
+  // };
 
   if (user) {
     navigate("/");
   }
 
-  if (loading) {
-    return <>LOADING</>;
-  }
-
   return (
-    <>
-      <form name="Registration form" className={st.form} onSubmit={handleSubmit}>
-        <label htmlFor="User name">
-          Email
-          <Input
-            placeholder="Name..."
-            type="text"
-            id="User name"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label htmlFor="User email">
-          Email
-          <Input
-            placeholder="Email..."
-            type="email"
-            id="User email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label htmlFor="User password">
-          Password
-          <Input
-            placeholder="Password..."
-            type="password"
-            id="User password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
+    <div className={cls.formWrapper}>
+      <form className={cls.form} name="Registration form" onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <Input
+              {...field}
+              autoFocus
+              placeholder="Введите почту"
+              validateErrorMessage={errors.email?.message}
+            />
+          )}
+        />
 
-        <Button htmlType="submit" type="primary">
-          Sign Up
+        <Controller
+          control={control}
+          name="password"
+          render={({ field }) => (
+            <Input
+              {...field}
+              placeholder="Введите пароль"
+              type="password"
+              validateErrorMessage={errors.password?.message}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <Input
+              {...field}
+              placeholder="Повторите пароль"
+              type="password"
+              validateErrorMessage={errors.confirmPassword?.message}
+            />
+          )}
+        />
+
+        <Button type="submit" variant="filled">
+          Зарегистрироваться
         </Button>
-        <Button onClick={updateData}>Update user data</Button>
-        <Link to="/">Nav to Home</Link>
+        <Button variant="clear" onClick={() => navigate("/login")}>
+          Уже зарегистрированы?
+        </Button>
       </form>
-      <button onClick={() => navigate("/login")}>Уже зарегистрированы?</button>
-    </>
+    </div>
   );
 };
