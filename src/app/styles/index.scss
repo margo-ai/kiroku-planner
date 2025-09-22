@@ -2,6 +2,7 @@
 @use "./variables/global.scss";
 @use "./themes/dark.scss";
 @use "./themes/light.scss";
+@use "./reset.scss";
 
 * {
   margin: 0;
@@ -9,8 +10,18 @@
   font-family: "Manrope", sans-serif;
 }
 
-body {
-  background-color: var(--bg-color);
+*::-webkit-scrollbar {
+  width: 8px; /* Ширина всего элемента навигации */
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: inherit; /* Цвет дорожки */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--border-color-2); /* Цвет бегунка */
+  border-radius: 12px; /* Округление бегунка */
 }
 
 .app {
@@ -20,11 +31,5 @@ body {
   top: 0;
   left: 0;
   overflow: hidden;
-  font: var(--font-m);
   color: var(--text-color);
-}
-
-.content {
-  height: calc(100vh - 64px) !important;
-  padding: 30px;
 }

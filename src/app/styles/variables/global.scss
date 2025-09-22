@@ -3,26 +3,42 @@
 
   //s
   --font-size-s: 14px;
-  --fon-line-s: 16px;
-  --font-s: var(--font-size-s) / var(--fon-line-s) var(--main-font-family);
+  --font-line-s: 16px;
+  --font-s: var(--font-size-s) / var(--font-line-s) var(--main-font-family);
 
   //m
   --font-size-m: 16px;
-  --fon-line-m: 18px;
-  --font-m: var(--font-size-m) / var(--fon-line-m) var(--main-font-family);
+  --font-line-m: 18px;
+  --font-m: var(--font-size-m) / var(--font-line-m) var(--main-font-family);
 
   //l
   --font-size-l: 18px;
-  --fon-line-l: 20px;
-  --font-l: var(--font-size-l) / var(--fon-line-l) var(--main-font-family);
+  --font-line-l: 20px;
+  --font-l: var(--font-size-l) / var(--font-line-l) var(--main-font-family);
 
   //xl
   --font-size-xl: 20px;
-  --fon-line-xl: 22px;
-  --font-xl: var(--font-size-xl) / var(--fon-line-xl) var(--main-font-family);
+  --font-line-xl: 22px;
+  --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--main-font-family);
 
   //xxl
   --font-size-xxl: 36px;
-  --fon-line-xxl: 38px;
-  --font-xxl: var(--font-size-xxl) / var(--fon-line-xxl) var(--main-font-family);
+  --font-line-xxl: 38px;
+  --font-xxl: var(--font-size-xxl) / var(--font-line-xxl) var(--main-font-family);
+
+  //common colors
+  --white: #ffffff;
+  --black: #222222;
+
+  //priority colors
+  --low-priority: #b8ebb0;
+  --medium-priority: #f0ca81;
+  --high-priority: #de1d3e;
+
+  // z - индексы
+  --modal-z-index: 10;
+  --overlay-z-index: 5;
+
+  // Цвета
+  --overlay-color: rgba(0 0 0 / 0.6);
 }

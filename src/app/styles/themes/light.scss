@@ -2,6 +2,8 @@
   .app_light_theme {
     --bg-color: #f5f7fa;
     --dark-bg-color: #ccd5e0;
+    --list-bg-color: #f8f8f9;
+    --task-bg-color: #ffffff;
     --text-color: #1c1c1e;
     --hint-color: #8e8e93;
     --cancel-color: #e74c3c;
@@ -10,5 +12,6 @@
     --accent-color: #6fb4ed;
     --border-color: #cbd3dd;
     --border-color-2: #5c6a81;
+    --task-border-color: #f0f0f0;
   }
 }

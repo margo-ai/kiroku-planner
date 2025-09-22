@@ -1,6 +1,7 @@
 /// <reference types="vite-plugin-svgr/client" />
 
 declare module "*.scss";
+declare module "*.css";
 
 declare module "*.svg" {
   import React from "react";

@@ -2,6 +2,8 @@
   .app_dark_theme {
     --bg-color: #1e1f29;
     --dark-bg-color: #2c2f3a;
+    --list-bg-color: #454545;
+    --task-bg-color: #363636;
     --text-color: #f2f2f5;
     --hint-color: #8e8e93;
     --cancel-color: #e57373;
@@ -10,5 +12,6 @@
     --accent-color: #6fb4ed;
     --border-color: #3a3f47;
     --border-color-2: #9bafd0;
+    --task-border-color: #3e3e3e;
   }
 }
