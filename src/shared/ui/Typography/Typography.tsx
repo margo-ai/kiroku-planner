@@ -1,13 +1,15 @@
-import cn from "classnames";
+import classnames from "classnames";
 import { memo } from "react";
 
 import cls from "./Typography.module.scss";
 
-export type TextVariant = "primary" | "error" | "accent";
+type TextVariant = "primary" | "error" | "accent";
 
-export type TextAlign = "left" | "right" | "center";
+type TextAlign = "left" | "right" | "center";
 
-export type TextSize = "s" | "m" | "l";
+type TextSize = "s" | "m" | "l";
+
+type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 
 interface TextProps {
   className?: string;
@@ -15,13 +17,11 @@ interface TextProps {
   text?: string;
   variant?: TextVariant;
   align?: TextAlign;
+  Tag?: TagType;
   size?: TextSize;
   bold?: boolean;
-
-  "data-testid"?: string;
+  withoutMargin?: boolean;
 }
-
-type HeaderTagType = "h1" | "h2" | "h3";
 
 const mapSizeToClass: Record<TextSize, string> = {
   s: "size_s",
@@ -29,41 +29,29 @@ const mapSizeToClass: Record<TextSize, string> = {
   l: "size_l"
 };
 
-const mapSizeToHeaderTag: Record<TextSize, HeaderTagType> = {
-  s: "h3",
-  m: "h2",
-  l: "h1"
-};
-
 export const Typography = memo((props: TextProps) => {
   const {
     className,
     text,
     title,
+    Tag = "p",
     variant = "primary",
     align = "left",
     size = "m",
     bold = false,
-    "data-testid": dataTestId = "Text"
+    withoutMargin = false
   } = props;
 
-  const HeaderTag = mapSizeToHeaderTag[size];
   const sizeClass = mapSizeToClass[size];
 
-  const additionalClasses = [className, cls[variant], cls[align], sizeClass];
+  const additionalClasses = [className, cls[variant], cls[align], cls[sizeClass]];
 
   return (
-    <div className={cn(cls.typography, { [cls.bold]: bold }, additionalClasses)}>
+    <div className={classnames(cls.typography, { [cls.bold]: bold }, additionalClasses)}>
       {title && (
-        <HeaderTag className={cls.title} data-testid={`${dataTestId}.Header`}>
-          {title}
-        </HeaderTag>
+        <Tag className={classnames(cls.title, { [cls.withoutMargin]: withoutMargin })}>{title}</Tag>
       )}
-      {text && (
-        <p className={cls.text} data-testid={`${dataTestId}.Paragraph`}>
-          {text}
-        </p>
-      )}
+      {text && <p className={cls.text}>{text}</p>}
     </div>
   );
 });

@@ -1,4 +1,4 @@
-import cn from "classnames";
+import classnames from "classnames";
 import { ButtonHTMLAttributes, ForwardedRef, forwardRef } from "react";
 
 import cls from "./Button.module.scss";
@@ -35,7 +35,12 @@ export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButt
   const classes = [className, cls[variant], cls[size], cls[color]];
 
   return (
-    <button className={cn(cls.button, mods, classes)} disabled={disabled} ref={ref} {...otherProps}>
+    <button
+      className={classnames(cls.button, mods, classes)}
+      disabled={disabled}
+      ref={ref}
+      {...otherProps}
+    >
       {children}
     </button>
   );

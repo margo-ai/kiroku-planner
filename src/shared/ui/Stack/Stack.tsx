@@ -1,12 +1,12 @@
-import cn from "classnames";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import classnames from "classnames";
+import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
 
 import cls from "./Stack.module.scss";
 
 type FlexJustify = "flex-start" | "center" | "flex-end" | "space-between" | "space-around";
 type FlexAlign = "flex-start" | "center" | "flex-end" | "stretch" | "baseline";
 type FlexDirection = "column" | "column-reverse" | "row" | "row-reverse";
-type FlexGap = "4" | "8" | "16" | "24" | "32";
+type FlexGap = "4" | "8" | "12" | "24" | "32";
 
 type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
@@ -36,7 +36,7 @@ const directionClasses: Record<FlexDirection, string> = {
 const gapClasses: Record<FlexGap, string> = {
   4: cls.gap4,
   8: cls.gap8,
-  16: cls.gap16,
+  12: cls.gap12,
   24: cls.gap24,
   32: cls.gap32
 };
@@ -52,7 +52,7 @@ interface StackProps extends DivProps {
   gap?: FlexGap;
 }
 
-export const Stack = (props: StackProps) => {
+export const Stack = forwardRef<HTMLDivElement, StackProps>((props, forwardedRef) => {
   const {
     wrap,
     fullWidth,
@@ -80,8 +80,8 @@ export const Stack = (props: StackProps) => {
   ];
 
   return (
-    <div className={cn(cls.stack, mods, classes)} {...restProps}>
+    <div className={classnames(cls.stack, mods, classes)} ref={forwardedRef} {...restProps}>
       {children}
     </div>
   );
-};
+});

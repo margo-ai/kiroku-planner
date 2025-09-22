@@ -9,5 +9,12 @@ export default defineConfig({
     react(),
     tsConfigPaths(),
     svgr({ svgrOptions: { exportType: "default" }, include: "**/*.svg" })
-  ]
+  ],
+  css: {
+    modules: {
+      scopeBehaviour: "local",
+      localsConvention: "camelCase",
+      generateScopedName: "[name]__[local]___[hash:base64:5]"
+    }
+  }
 });

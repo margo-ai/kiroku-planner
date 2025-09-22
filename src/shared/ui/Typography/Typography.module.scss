@@ -2,6 +2,11 @@
   margin-bottom: 16px;
 }
 
+.title,
+.text {
+  overflow-wrap: break-word;
+}
+
 .primary {
   .title {
     color: var(--text-color);
@@ -78,4 +83,8 @@
   .title {
     font-weight: 700;
   }
+}
+
+.withoutMargin {
+  margin-bottom: 0;
 }

@@ -1,4 +1,4 @@
-import cn from "classnames";
+import classnames from "classnames";
 import {
   InputHTMLAttributes,
   ReactNode,
@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import { Stack } from "../Stack";
+import { Typography } from "../Typography";
 
 import cls from "./Input.module.scss";
 
@@ -25,7 +26,6 @@ interface InputProps extends HTMLInputProps {
   size?: InputSize;
   addonLeft?: ReactNode;
   validateErrorMessage?: string;
-  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = memo(
@@ -73,7 +73,7 @@ export const Input = memo(
     const mods = { [cls.focused]: isFocused, [cls.withAddonLeft]: Boolean(addonLeft) };
 
     const input = (
-      <div className={cn(cls.inputWrapper, mods, [className, cls[size]])}>
+      <div className={classnames(cls.inputWrapper, mods, [className, cls[size]])}>
         {addonLeft && <div className={cls.addonLeft}>{addonLeft}</div>}
         <input
           className={cls.input}
@@ -92,8 +92,8 @@ export const Input = memo(
 
     if (label) {
       return (
-        <Stack fullWidth gap="8">
-          <h3>{label}</h3>
+        <Stack fullWidth gap="8" justify="space-between">
+          <Typography title={label} size="s" />
           {input}
         </Stack>
       );
