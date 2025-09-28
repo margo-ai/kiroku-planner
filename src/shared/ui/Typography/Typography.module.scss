@@ -49,6 +49,16 @@
   text-align: center;
 }
 
+.size_xs {
+  .title {
+    font: var(--font-s);
+  }
+
+  .text {
+    font: var(--font-xs);
+  }
+}
+
 .size_s {
   .title {
     font: var(--font-m);
@@ -76,6 +86,16 @@
 
   .text {
     font: var(--font-l);
+  }
+}
+
+.size_xl {
+  .title {
+    font: var(--font-xxl);
+  }
+
+  .text {
+    font: var(--font-xl);
   }
 }
 

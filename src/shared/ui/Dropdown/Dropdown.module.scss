@@ -1,0 +1,29 @@
+.dropdownWrapper {
+  :global {
+    .ant-dropdown {
+      .ant-dropdown-menu {
+        background-color: var(--dark-bg-color);
+        border-radius: 12px;
+        border: 2px solid var(--icon-color);
+
+        .ant-dropdown-menu-title-content > a {
+          color: var(--text-color);
+        }
+
+        .ant-dropdown-menu-item {
+          padding: 8px 14px;
+          font: var(--font-m);
+          color: var(--text-color);
+          button {
+            color: var(--text-color);
+            font: var(--font-m);
+          }
+
+          &:hover {
+            background-color: var(--list-bg-color);
+          }
+        }
+      }
+    }
+  }
+}

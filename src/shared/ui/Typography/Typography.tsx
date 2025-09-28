@@ -7,13 +7,13 @@ type TextVariant = "primary" | "error" | "accent";
 
 type TextAlign = "left" | "right" | "center";
 
-type TextSize = "s" | "m" | "l";
+type TextSize = "xs" | "s" | "m" | "l" | "xl";
 
 type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 
 interface TextProps {
+  title: string;
   className?: string;
-  title?: string;
   text?: string;
   variant?: TextVariant;
   align?: TextAlign;
@@ -24,9 +24,11 @@ interface TextProps {
 }
 
 const mapSizeToClass: Record<TextSize, string> = {
+  xs: "size_xs",
   s: "size_s",
   m: "size_m",
-  l: "size_l"
+  l: "size_l",
+  xl: "size_xl"
 };
 
 export const Typography = memo((props: TextProps) => {
