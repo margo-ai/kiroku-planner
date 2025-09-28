@@ -1,0 +1,53 @@
+.task {
+  background-color: var(--task-bg-color);
+  border: 2px solid var(--task-border-color);
+  border-radius: 6px;
+  padding: 15px;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+.priority {
+  font: var(--font-s);
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 20px;
+
+  p {
+    color: var(--black) !important;
+  }
+}
+
+.priorityAndCreatedDate {
+  margin-bottom: 12px;
+}
+
+.titleAndDescr {
+  margin-bottom: 20px;
+}
+
+.createdAt {
+  opacity: 0.7;
+}
+
+.low {
+  background-color: var(--low-priority);
+}
+
+.medium {
+  background-color: var(--medium-priority);
+}
+
+.high {
+  background-color: var(--high-priority);
+  color: var(--white);
+}
+
+.dragging {
+  transform: rotate(5deg);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mouseOver {
+  opacity: 0.7;
+}

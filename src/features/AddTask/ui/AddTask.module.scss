@@ -1,0 +1,29 @@
+.addTaskBtn {
+  background-color: var(--task-bg-color);
+  border: 2px solid var(--task-border-color);
+  border-radius: 6px;
+  padding: 15px;
+  width: 100%;
+
+  &:hover {
+    svg {
+      opacity: 0.7;
+    }
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    transition: all 0.3s ease;
+    path {
+      stroke: var(--text-color);
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 15px;
+}

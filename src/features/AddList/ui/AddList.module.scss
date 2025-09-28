@@ -1,0 +1,30 @@
+.addListBtn {
+  background-color: var(--task-bg-color);
+  border: 2px solid var(--border-color-2);
+  border-radius: 6px;
+  padding: 20px;
+  width: 300px;
+  flex: 0 0 300px;
+
+  &:hover {
+    svg {
+      opacity: 0.5;
+    }
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    transition: all 0.3s ease;
+    path {
+      stroke: var(--text-color);
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 15px;
+}
