@@ -1,4 +1,4 @@
-import { Stack } from "../ui/Stack";
+import { Stack } from "../../shared/ui/Stack";
 
 import { Content } from "./Content/Content";
 import { Header } from "./Header/Header";

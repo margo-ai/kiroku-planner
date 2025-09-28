@@ -2,9 +2,9 @@ import { RouteProps } from "react-router-dom";
 
 import { BoardPage } from "@/Pages/BoardPage";
 import { HomePage } from "@/Pages/HomePage";
-import { Login } from "@/Pages/Login";
+import { LoginPage } from "@/Pages/LoginPage";
 import { NotFoundPage } from "@/Pages/NotFoundPage";
-import { Registration } from "@/Pages/Registration";
+import { RegistrationPage } from "@/Pages/RegistrationPage";
 
 import { ProtectedRoute } from "./routeGuard";
 
@@ -27,11 +27,11 @@ export const RoutePath: Record<AppRoutes, string> = {
 export const routeConfig: Record<AppRoutes, RouteProps> = {
   [AppRoutes.LOGIN]: {
     path: RoutePath.login,
-    element: <Login />
+    element: <LoginPage />
   },
   [AppRoutes.REGISTRATION]: {
     path: RoutePath.registration,
-    element: <Registration />
+    element: <RegistrationPage />
   },
   [AppRoutes.HOME]: {
     path: RoutePath.home,

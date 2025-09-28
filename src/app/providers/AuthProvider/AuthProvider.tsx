@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { AuthContext, AuthContextType } from "@/features/AuthForm";
+import { AuthContext, AuthContextType } from "@/features/Auth";
 
 import { auth } from "../../../config/firebase";
 import { UserData } from "../../../shared/types";
@@ -70,7 +70,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (currentUser) {
         const userData = mapUser(currentUser);
         setUser(userData);
-        console.log(userData);
       } else {
         setUser(null);
       }

@@ -1,32 +1,29 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { memo } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
-import { useAuthContext } from "../../features/AuthForm/model/services/authContext";
-
-import cls from "./Registration.module.scss";
 import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
+
+import { useAuthContext } from "../../model/services/authContext";
+
+import cls from "./LoginForm.module.scss";
 
 type Inputs = {
   email: string;
   password: string;
-  confirmPassword: string;
 };
 
 const schema = yup
   .object({
     email: yup.string().email("Введите корректный email").required("Email обязателен"),
-    password: yup.string().min(8, "Минимум 8 символов").required("Пароль обязателен"),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password")], "Пароли не совпадают")
-      .required("Пароль обязателен")
+    password: yup.string().min(8, "Минимум 8 символов").required("Пароль обязателен")
   })
   .required();
 
-export const Registration = () => {
+export const LoginForm = memo(() => {
   const {
     control,
     handleSubmit,
@@ -35,32 +32,21 @@ export const Registration = () => {
     resolver: yupResolver(schema),
     defaultValues: {
       email: "",
-      password: "",
-      confirmPassword: ""
+      password: ""
     }
   });
-  const { signUp, user, error } = useAuthContext();
+  const { user, signIn, error } = useAuthContext();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { email, password } = data;
 
-    await signUp(email, password);
+    await signIn(email, password);
   };
 
   if (error) {
     return <>произошла ошибка {error}</>;
   }
-
-  // const updateData = async () => {
-  //   if (currentUser) {
-  //     await updateProfile(currentUser, {
-  //       displayName: "Tony Stark",
-  //       photoURL:
-  //         "https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/tony_stark.png"
-  //     });
-  //   }
-  // };
 
   if (user) {
     navigate("/");
@@ -68,7 +54,7 @@ export const Registration = () => {
 
   return (
     <div className={cls.formWrapper}>
-      <form className={cls.form} name="Registration form" onSubmit={handleSubmit(onSubmit)}>
+      <form className={cls.form} name="Auth form" onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name="email"
@@ -95,26 +81,13 @@ export const Registration = () => {
           )}
         />
 
-        <Controller
-          control={control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <Input
-              {...field}
-              placeholder="Повторите пароль"
-              type="password"
-              validateErrorMessage={errors.confirmPassword?.message}
-            />
-          )}
-        />
-
         <Button type="submit" variant="filled">
-          Зарегистрироваться
-        </Button>
-        <Button variant="clear" onClick={() => navigate("/login")}>
-          Уже зарегистрированы?
+          Войти
         </Button>
       </form>
+      <Button variant="clear" onClick={() => navigate("/registration")}>
+        Вы у нас впервые?
+      </Button>
     </div>
   );
-};
+});
