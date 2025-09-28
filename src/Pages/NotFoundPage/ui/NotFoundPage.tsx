@@ -1,4 +1,4 @@
-import cn from "classnames";
+import classnames from "classnames";
 
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
@@ -11,7 +11,7 @@ interface NotFoundPageProps {
 
 const NotFoundPage = ({ className }: NotFoundPageProps) => {
   return (
-    <Stack data-testid="NotFoundPage" className={cn(cls.notFoundPage, {}, [className])}>
+    <Stack data-testid="NotFoundPage" className={classnames(cls.notFoundPage, {}, [className])}>
       <Typography
         align="center"
         size="l"

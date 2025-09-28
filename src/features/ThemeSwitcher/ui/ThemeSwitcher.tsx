@@ -1,9 +1,11 @@
+import { memo } from "react";
+
 import { useTheme } from "@/app/providers/ThemeProvider/useTheme";
 import ThemeIcon from "@/shared/assets/icons/theme.svg";
 
 import cls from "./ThemeSwitcher.module.scss";
 
-export const ThemeSwitcher = () => {
+export const ThemeSwitcher = memo(() => {
   const { toggleTheme } = useTheme();
 
   return (
@@ -11,4 +13,4 @@ export const ThemeSwitcher = () => {
       <ThemeIcon />
     </button>
   );
-};
+});

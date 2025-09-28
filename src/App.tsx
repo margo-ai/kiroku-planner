@@ -1,4 +1,4 @@
-import { Layout } from "./shared/Layout/Layout";
+import { Layout } from "./app/Layout/Layout";
 
 function App() {
   return (

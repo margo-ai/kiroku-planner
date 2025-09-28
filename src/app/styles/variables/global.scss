@@ -1,6 +1,11 @@
 :root {
   --main-font-family: "Manrope", sans-serif;
 
+  //xs
+  --font-size-xs: 12px;
+  --font-line-xs: 14px;
+  --font-xs: var(--font-size-xs) / var(--font-line-xs) var(--main-font-family);
+
   //s
   --font-size-s: 14px;
   --font-line-s: 16px;
