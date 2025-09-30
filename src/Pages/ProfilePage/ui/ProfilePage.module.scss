@@ -1,0 +1,21 @@
+.header,
+.form {
+  width: 100%;
+  background-color: var(--dark-bg-color);
+  border-radius: 12px;
+  padding: 16px;
+
+  max-width: 800px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.inputWrapper {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+}

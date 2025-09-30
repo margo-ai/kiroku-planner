@@ -4,6 +4,7 @@ import { BoardPage } from "@/Pages/BoardPage";
 import { HomePage } from "@/Pages/HomePage";
 import { LoginPage } from "@/Pages/LoginPage";
 import { NotFoundPage } from "@/Pages/NotFoundPage";
+import { ProfilePage } from "@/Pages/ProfilePage";
 import { RegistrationPage } from "@/Pages/RegistrationPage";
 
 import { ProtectedRoute } from "./routeGuard";
@@ -13,6 +14,7 @@ export enum AppRoutes {
   REGISTRATION = "registration",
   HOME = "home",
   BOARD = "board",
+  PROFILE = "profile",
   NOT_FOUND = "not_found"
 }
 
@@ -21,6 +23,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.REGISTRATION]: "registration",
   [AppRoutes.HOME]: "/",
   [AppRoutes.BOARD]: "/board",
+  [AppRoutes.PROFILE]: "/profile",
   [AppRoutes.NOT_FOUND]: "*"
 };
 
@@ -46,6 +49,14 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     element: (
       <ProtectedRoute>
         <BoardPage />
+      </ProtectedRoute>
+    )
+  },
+  [AppRoutes.PROFILE]: {
+    path: RoutePath.profile,
+    element: (
+      <ProtectedRoute>
+        <ProfilePage />
       </ProtectedRoute>
     )
   },

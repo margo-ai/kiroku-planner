@@ -12,6 +12,9 @@ const AuthDefaultContextValue: AuthContextType = {
   async logOut() {
     throw new Error("AuthProvider not mounted");
   },
+  async refreshUser() {
+    throw new Error("AuthProvider not mounted");
+  },
   user: null,
   loading: true,
   error: null

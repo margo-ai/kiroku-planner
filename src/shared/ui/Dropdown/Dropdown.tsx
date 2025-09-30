@@ -1,9 +1,6 @@
 import { Dropdown as AntdDropdown, MenuProps } from "antd";
 import classnames from "classnames";
 import { ReactNode, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { useAuthContext } from "@/features/Auth";
 
 import cls from "./Dropdown.module.scss";
 
@@ -16,13 +13,14 @@ export interface DropdownItem {
 }
 
 interface DropdownProps {
+  children: ReactNode;
   items: DropdownItem[];
-  trigger: ReactNode;
+  triggerEvent?: "click" | "hover" | "contextMenu";
   className?: string;
 }
 
 export const Dropdown = (props: DropdownProps) => {
-  const { items, trigger, className } = props;
+  const { items, children, triggerEvent = "hover", className } = props;
 
   const preparedItems: MenuProps["items"] = items.map((item) => {
     if (item.href) {
@@ -43,9 +41,9 @@ export const Dropdown = (props: DropdownProps) => {
         className={cls.dropdown}
         getPopupContainer={getPopupContainer}
         menu={{ items: preparedItems }}
-        trigger={["click"]}
+        trigger={[triggerEvent]}
       >
-        {trigger}
+        {children}
       </AntdDropdown>
     </div>
   );

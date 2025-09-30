@@ -39,7 +39,12 @@ export const AvatarDropdown = () => {
       content: "На доску",
       href: "/board"
     },
-    { key: "2", content: "Выйти", onClick: handleLogout }
+    {
+      key: "2",
+      content: "Профиль",
+      href: "/profile"
+    },
+    { key: "3", content: "Выйти", onClick: handleLogout }
   ];
 
   const trigger = loading ? (
@@ -50,13 +55,15 @@ export const AvatarDropdown = () => {
   ) : (
     <Button className={cls.avatarButton} variant="clear">
       <Avatar size={50} src={user?.photo ?? fallbackImgLink} />
-      <Typography withoutMargin title={user?.name ?? ""} />
+      <Typography title={user?.name ?? ""} />
     </Button>
   );
   return (
     <>
       {contextHolder}
-      <Dropdown className={cls.avatarDropdown} items={items} trigger={trigger} />
+      <Dropdown className={cls.avatarDropdown} items={items} triggerEvent="click">
+        {trigger}
+      </Dropdown>
     </>
   );
 };

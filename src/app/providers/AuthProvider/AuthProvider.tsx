@@ -65,6 +65,14 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
+  const refreshUser = useCallback(async () => {
+    if (auth.currentUser) {
+      await auth.currentUser.reload();
+      const updatedUser = mapUser(auth.currentUser);
+      setUser(updatedUser);
+    }
+  }, []);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -84,8 +92,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const authValue: AuthContextType = useMemo(
-    () => ({ signUp, signIn, user, logOut, loading, error }),
-    [signUp, signIn, user, logOut, loading, error]
+    () => ({ signUp, signIn, user, logOut, loading, error, refreshUser }),
+    [signUp, signIn, user, logOut, loading, error, refreshUser]
   );
 
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;

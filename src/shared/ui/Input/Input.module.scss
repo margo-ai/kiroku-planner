@@ -26,6 +26,10 @@
   }
 }
 
+.readonly {
+  opacity: 0.7;
+}
+
 .withAddonLeft {
   padding-left: 8px;
 }
@@ -62,6 +66,10 @@
   &::placeholder {
     color: var(--hint-color);
   }
+}
+
+.fullWidth {
+  width: 100%;
 }
 
 .error {
