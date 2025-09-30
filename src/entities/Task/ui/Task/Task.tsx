@@ -1,8 +1,13 @@
 import { Draggable } from "@hello-pangea/dnd";
+import { message } from "antd";
 import classnames from "classnames";
+import { FirebaseError } from "firebase/app";
+import { getDatabase, ref, remove } from "firebase/database";
 import { memo, useEffect, useMemo, useState } from "react";
 
+import { useAuthContext } from "@/features/Auth";
 import { getStringDate } from "@/shared/lib/helpers/getStringDate";
+import { Dropdown, DropdownItem } from "@/shared/ui/Dropdown";
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
 
@@ -25,6 +30,8 @@ interface TaskProps extends ITask {
 export const Task = memo((props: TaskProps) => {
   const { title, priority, description, createdAt, finishBy, index, taskId, listId } = props;
 
+  const { user } = useAuthContext();
+
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [isEditTaskModalOpen, setIsEditTaskModalOpen] = useState(false);
 
@@ -33,49 +40,69 @@ export const Task = memo((props: TaskProps) => {
   const stringCreatedDate = getStringDate(createdAt);
   const stringFinishDate = getStringDate(finishBy);
 
+  const [messageApi, contextHolder] = message.useMessage();
+
   const taskFields = useMemo(
     () => ({ title, priority, description, finishBy: new Date(finishBy) }),
     [title, priority, description, finishBy]
   );
 
-  useEffect(() => {
-    console.log(isEditTaskModalOpen);
-  }, [isEditTaskModalOpen]);
+  const handleDeleteTask = async () => {
+    const db = getDatabase();
+    const task = ref(db, `users/${user?.uid}/${listId}/tasks/${taskId}`);
+    try {
+      await remove(task);
+      message.success({ content: "Задача удалена!" });
+      console.log("Задача удалена!");
+    } catch (error) {
+      console.log(error);
+      if (error instanceof FirebaseError) {
+        messageApi.error({ content: error.message });
+      } else {
+        messageApi.error({ content: "Произошла неизвестная ошибка" });
+      }
+    }
+  };
 
   return (
     <>
+      {contextHolder}
       <Draggable draggableId={taskId} index={index}>
         {(provided, snapshot) => (
-          <li
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            className={classnames(cls.task, {
-              [cls.dragging]: snapshot.isDragging,
-              [cls.mouseOver]: isMouseOver
-            })}
-            onClick={() => setIsEditTaskModalOpen(true)}
-            onMouseOver={() => setIsMouseOver(true)}
-            onMouseOut={() => setIsMouseOver(false)}
+          <Dropdown
+            items={[{ key: "1", content: "Удалить задачу", onClick: handleDeleteTask }]}
+            triggerEvent="contextMenu"
           >
-            <Stack justify="space-between" className={cls.priorityAndCreatedDate}>
-              <Typography
-                withoutMargin
-                className={classnames(cls.priority, cls[priorityClass])}
-                title={priority}
-                size="s"
-              />
-              <Typography
-                withoutMargin
-                className={cls.createdAt}
-                title={stringCreatedDate}
-                size="s"
-              />
-            </Stack>
-            <Typography className={cls.titleAndDescr} title={title} text={description} />
+            <li
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+              className={classnames(cls.task, {
+                [cls.dragging]: snapshot.isDragging,
+                [cls.mouseOver]: isMouseOver
+              })}
+              onClick={() => setIsEditTaskModalOpen(true)}
+              onMouseOver={() => setIsMouseOver(true)}
+              onMouseOut={() => setIsMouseOver(false)}
+            >
+              <Stack justify="space-between" className={cls.priorityAndCreatedDate}>
+                <Typography
+                  className={classnames(cls.priority, cls[priorityClass])}
+                  title={priority}
+                  size="s"
+                />
+                <Typography
+                  className={cls.createdAt}
+                  title={stringCreatedDate}
+                  size="s"
+                  titleMb={24}
+                />
+              </Stack>
+              <Typography className={cls.titleAndDescr} title={title} text={description} />
 
-            <Typography size="s" title={`Завершить к ${stringFinishDate}`} />
-          </li>
+              <Typography size="s" title={`Завершить к ${stringFinishDate}`} />
+            </li>
+          </Dropdown>
         )}
       </Draggable>
 

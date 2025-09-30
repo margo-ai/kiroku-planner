@@ -37,7 +37,7 @@ export const Select = memo(
     if (label) {
       return (
         <Stack fullWidth gap="8" justify="space-between">
-          <Typography withoutMargin title={label} size="s" />
+          <Typography title={label} size="s" />
           {select}
         </Stack>
       );

@@ -16,6 +16,8 @@ export function useModal(props: useModalProps) {
   useEffect(() => {
     if (isOpen) {
       setIsMounted(true);
+    } else {
+      setIsMounted(false);
     }
   }, [isOpen]);
 
@@ -25,6 +27,7 @@ export function useModal(props: useModalProps) {
       timerRef.current = setTimeout(() => {
         onClose();
         setIsClosing(false);
+        setIsMounted(false);
       }, animationDelay);
     }
   }, [animationDelay, onClose]);

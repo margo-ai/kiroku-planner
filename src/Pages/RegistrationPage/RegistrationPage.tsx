@@ -23,7 +23,7 @@ export const RegistrationPage = () => {
 
   return (
     <Stack gap="32" direction="column">
-      <Typography title="Регистрация" Tag="h1" size="xl" />
+      <Typography title="Регистрация" Tag="h1" size="xl" titleMb={16} />
       <RegistrationForm />
     </Stack>
   );

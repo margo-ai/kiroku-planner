@@ -93,7 +93,7 @@ export const AddList = memo((props: AddListProps) => {
         <PlusIcon />
       </Button>
       <Modal onClose={onModalClose} isOpen={isModalOpen}>
-        <Typography title="Создание списка" />
+        <Typography title="Создание списка" titleMb={24} />
         <form className={cls.form} name="Add list form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}

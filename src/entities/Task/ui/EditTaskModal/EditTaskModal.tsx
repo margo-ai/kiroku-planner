@@ -71,7 +71,7 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
       const id = setTimeout(() => setFocus("title"), 500); // синхронизируем с анимацией модалки
       return () => clearTimeout(id);
     }
-  }, [isModalOpen, setFocus]);
+  }, [isModalOpen]);
 
   const onSubmit: SubmitHandler<ITaskFields> = async (data) => {
     console.log({ ...data, finishBy: data.finishBy.getTime() });
@@ -102,7 +102,7 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
     <>
       {contextHolder}
       <Modal isOpen={isModalOpen} onClose={handleClose}>
-        <Typography title="Редактирование" />
+        <Typography title="Редактирование" titleMb={16} />
         <form className={cls.form} name="Edit task form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}

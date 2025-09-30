@@ -114,7 +114,7 @@ export const AddTask = memo((props: AddTaskProps) => {
         <PlusIcon />
       </Button>
       <Modal onClose={handleClose} isOpen={isModalOpen}>
-        <Typography title="Добавление задачи" />
+        <Typography title="Добавление задачи" titleMb={24} />
         <form className={cls.form} name="Add task form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}

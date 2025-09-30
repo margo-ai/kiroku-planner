@@ -11,6 +11,7 @@ type TextSize = "xs" | "s" | "m" | "l" | "xl";
 
 type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 
+type TitleMarginBottom = 0 | 8 | 12 | 16 | 24 | 32;
 interface TextProps {
   title: string;
   className?: string;
@@ -20,7 +21,7 @@ interface TextProps {
   Tag?: TagType;
   size?: TextSize;
   bold?: boolean;
-  withoutMargin?: boolean;
+  titleMb?: TitleMarginBottom;
 }
 
 const mapSizeToClass: Record<TextSize, string> = {
@@ -41,7 +42,7 @@ export const Typography = memo((props: TextProps) => {
     align = "left",
     size = "m",
     bold = false,
-    withoutMargin = false
+    titleMb
   } = props;
 
   const sizeClass = mapSizeToClass[size];
@@ -51,7 +52,9 @@ export const Typography = memo((props: TextProps) => {
   return (
     <div className={classnames(cls.typography, { [cls.bold]: bold }, additionalClasses)}>
       {title && (
-        <Tag className={classnames(cls.title, { [cls.withoutMargin]: withoutMargin })}>{title}</Tag>
+        <Tag className={classnames(cls.title)} style={{ marginBottom: `${titleMb}px` }}>
+          {title}
+        </Tag>
       )}
       {text && <p className={cls.text}>{text}</p>}
     </div>

@@ -1,10 +1,11 @@
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import classnames from "classnames";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 
 import { ITaskList } from "@/entities/List";
 import { Task } from "@/entities/Task";
 import { AddTask } from "@/features/AddTask";
+import { DeleteList } from "@/features/List/DeleteList";
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
 
@@ -20,6 +21,8 @@ export const TaskList = memo((props: TaskListProps) => {
   const { className, list, index } = props;
 
   const { listTitle, tasks, listId } = list;
+
+  const [isDeleteButtonVisible, setIsDeleteButtonVisible] = useState(false);
 
   const newTaskOrder = tasks.length ? tasks[tasks.length - 1].taskOrder + 1 : 1;
 
@@ -37,8 +40,13 @@ export const TaskList = memo((props: TaskListProps) => {
           align="flex-start"
           direction="column"
           className={classnames(cls.taskListWrapper, {}, [className])}
+          onMouseOver={() => setIsDeleteButtonVisible(true)}
+          onMouseLeave={() => setIsDeleteButtonVisible(false)}
         >
-          <Typography bold size="l" title={listTitle} className={cls.title} />
+          <Stack fullWidth justify="space-between" className={cls.listHeader}>
+            <Typography bold size="l" title={listTitle} className={cls.title} />
+            {isDeleteButtonVisible && <DeleteList listId={listId} />}
+          </Stack>
 
           <Droppable droppableId={listId} type="TASK" direction="vertical">
             {(provided, snapshot) => (

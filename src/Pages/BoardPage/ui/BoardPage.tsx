@@ -2,10 +2,10 @@ import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import classnames from "classnames";
 import { useMemo } from "react";
 
-import { AddList } from "@/features/AddList";
-import { useGetLists } from "@/features/AddList/model/hooks/useGetLists";
 import { useAuthContext } from "@/features/Auth";
 import { useDnd } from "@/features/Dnd";
+import { AddList } from "@/features/List/AddList";
+import { useGetLists } from "@/features/List/GetList";
 import { Loader } from "@/shared/ui/Loader";
 import { Stack } from "@/shared/ui/Stack";
 import { TaskList } from "@/widgets/TaskList";

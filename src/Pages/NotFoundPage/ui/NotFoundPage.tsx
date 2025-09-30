@@ -16,8 +16,9 @@ const NotFoundPage = ({ className }: NotFoundPageProps) => {
         align="center"
         size="l"
         title="Страница не найдена"
+        titleMb={16}
         //TODO Сделать переадресацию на главную
-        text="Венитесь на главную страницу"
+        text="Вернитесь на главную страницу"
       />
     </Stack>
   );

@@ -7,7 +7,7 @@ import cls from "./LoginPage.module.scss";
 export const LoginPage = () => {
   return (
     <Stack className={cls.loginPage} direction="column" gap="32">
-      <Typography title="Вход" Tag="h1" size="xl" align="center" />
+      <Typography titleMb={16} title="Вход" Tag="h1" size="xl" align="center" />
       <LoginForm />
     </Stack>
   );

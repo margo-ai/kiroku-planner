@@ -18,7 +18,7 @@ const ErrorPage = memo(() => {
       gap="24"
       style={{ height: "80vh" }}
     >
-      <Typography size="l" title="Произошла ошибка" />
+      <Typography titleMb={16} size="l" title="Произошла ошибка" />
       <Button variant="outline" onClick={reloadPage}>
         Обновить страницу
       </Button>
