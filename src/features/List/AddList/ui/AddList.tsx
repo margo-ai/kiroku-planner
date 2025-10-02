@@ -1,7 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { message } from "antd";
-import { FirebaseError } from "firebase/app";
-import { getDatabase, push, ref, set } from "firebase/database";
 import { memo, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -13,10 +11,12 @@ import { Input } from "@/shared/ui/Input";
 import { Modal } from "@/shared/ui/Modal";
 import { Typography } from "@/shared/ui/Typography";
 
+import { useAddListMutation } from "../../model/api/listApi";
+
 import cls from "./AddList.module.scss";
 
 interface AddListProps {
-  newListOrder: number;
+  listOrder: number;
 }
 
 type Inputs = {
@@ -30,10 +30,12 @@ const schema = yup
   .required();
 
 export const AddList = memo((props: AddListProps) => {
-  const { newListOrder } = props;
+  const { listOrder } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useAuthContext();
+
+  const [addList] = useAddListMutation();
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -60,24 +62,14 @@ export const AddList = memo((props: AddListProps) => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { listTitle } = data;
 
-    const db = getDatabase();
-    const userBd = ref(db, `users/${user?.uid}`);
-    const newList = push(userBd);
     try {
-      await set(newList, {
-        listOrder: newListOrder,
-        listTitle: listTitle
-      });
+      await addList({ listOrder, listTitle, userId: user?.uid || "" }).unwrap();
       console.log("Список добавлен!");
       messageApi.success({ content: "Список добавлен!" });
       onModalClose();
     } catch (error) {
-      console.log(error);
-      if (error instanceof FirebaseError) {
-        messageApi.error({ content: error.message });
-      } else {
-        messageApi.error({ content: "Произошла неизвестная ошибка" });
-      }
+      console.error(error);
+      messageApi.error({ content: "Произошла неизвестная ошибка" });
     }
   };
 

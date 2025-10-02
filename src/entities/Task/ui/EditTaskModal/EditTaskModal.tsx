@@ -1,12 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { message } from "antd";
-import { FirebaseError } from "firebase/app";
-import { getDatabase, ref, update } from "firebase/database";
 import { useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { useAuthContext } from "@/features/Auth";
+import { useUpdateTaskMutation } from "@/features/List/model/api/taskApi";
 import { priorityOptions } from "@/shared/const/options";
 import { Button } from "@/shared/ui/Button";
 import { DateInput, Input } from "@/shared/ui/Input";
@@ -49,6 +48,8 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
 
   const { user } = useAuthContext();
 
+  const [updateTask] = useUpdateTaskMutation();
+
   const [messageApi, contextHolder] = message.useMessage();
 
   const {
@@ -76,21 +77,19 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
   const onSubmit: SubmitHandler<ITaskFields> = async (data) => {
     console.log({ ...data, finishBy: data.finishBy.getTime() });
 
-    const db = getDatabase();
-    const taskRef = ref(db, `users/${user?.uid}/${listId}/tasks/${taskId}`);
-
     try {
-      await update(taskRef, { ...data, finishBy: data.finishBy.getTime() });
+      await updateTask({
+        listId,
+        userId: user?.uid || "",
+        taskId,
+        taskData: { ...data, finishBy: data.finishBy.getTime() }
+      }).unwrap();
       console.log("Задача изменена!");
       messageApi.success({ content: "Задача изменена!" });
       handleClose();
     } catch (error) {
       console.log(error);
-      if (error instanceof FirebaseError) {
-        messageApi.error({ content: error.message });
-      } else {
-        messageApi.error({ content: "Произошла неизвестная ошибка" });
-      }
+      messageApi.error({ content: "Произошла неизвестная ошибка" });
     }
   };
 

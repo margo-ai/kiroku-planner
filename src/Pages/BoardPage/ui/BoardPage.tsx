@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { useAuthContext } from "@/features/Auth";
 import { useDnd } from "@/features/Dnd";
 import { AddList } from "@/features/List/AddList";
-import { useGetLists } from "@/features/List/GetList";
+import { useGetListsByUserQuery } from "@/features/List/model/api/listApi";
 import { Loader } from "@/shared/ui/Loader";
 import { Stack } from "@/shared/ui/Stack";
 import { TaskList } from "@/widgets/TaskList";
@@ -20,16 +20,15 @@ const BoardPage = (props: BoardProps) => {
   const { className } = props;
   const { user } = useAuthContext();
 
-  const { error, lists, loading } = useGetLists(user?.uid);
-
+  const { data: lists, isLoading } = useGetListsByUserQuery(user?.uid || "");
   const newListOrder = useMemo(
-    () => (lists.length ? lists[lists.length - 1].listOrder + 1 : 0),
+    () => (lists?.length ? lists[lists.length - 1].listOrder + 1 : 0),
     [lists]
   );
 
-  const { onDragEnd } = useDnd(lists, user?.uid ?? "");
+  const { onDragEnd } = useDnd(lists ?? [], user?.uid ?? "");
 
-  if (loading) {
+  if (isLoading) {
     return <Loader />;
   }
 
@@ -44,11 +43,11 @@ const BoardPage = (props: BoardProps) => {
             gap="32"
             className={classnames(cls.boardPage, {}, [className])}
           >
-            {lists.map((taskList, index) => (
+            {lists?.map((taskList, index) => (
               <TaskList key={taskList.listId} list={taskList} index={index} />
             ))}
             {provided.placeholder}
-            <AddList newListOrder={newListOrder} />
+            <AddList listOrder={newListOrder} />
           </Stack>
         )}
       </Droppable>

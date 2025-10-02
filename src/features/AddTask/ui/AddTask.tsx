@@ -1,13 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { message } from "antd";
-import { FirebaseError } from "firebase/app";
-import { getDatabase, push, ref, set } from "firebase/database";
 import { memo, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { Priority } from "@/entities/Task";
 import { useAuthContext } from "@/features/Auth";
+import { useAddTaskMutation } from "@/features/List/model/api/taskApi";
 import PlusIcon from "@/shared/assets/icons/plus.svg";
 import { priorityOptions } from "@/shared/const/options";
 import { Button } from "@/shared/ui/Button";
@@ -46,6 +45,8 @@ export const AddTask = memo((props: AddTaskProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useAuthContext();
 
+  const [addTask] = useAddTaskMutation();
+
   const [messageApi, contextHolder] = message.useMessage();
 
   const {
@@ -75,30 +76,25 @@ export const AddTask = memo((props: AddTaskProps) => {
     const { title, description, priority, finishBy } = data;
     console.log({ title, description, priority, finishBy: finishBy.getTime() });
 
-    const db = getDatabase();
-    const taskList = ref(db, `users/${user?.uid}/${listId}/tasks`);
-    const newTask = push(taskList);
     try {
-      await set(newTask, {
+      await addTask({
         taskOrder: newTaskOrder,
         priority: priority,
         title: title,
         description: description,
         createdAt: Date.now(),
-        createdBy: user?.name,
+        createdBy: user?.name ?? "",
         finishBy: finishBy.getTime(),
-        isDone: false
-      });
+        isDone: false,
+        userId: user?.uid ?? "",
+        listId
+      }).unwrap();
       console.log("Задача добавлена!");
       messageApi.success({ content: "Задача добавлена!" });
       handleClose();
     } catch (error) {
-      console.log(error);
-      if (error instanceof FirebaseError) {
-        messageApi.error({ content: error.message });
-      } else {
-        messageApi.error({ content: "Произошла неизвестная ошибка" });
-      }
+      console.error(error);
+      messageApi.error({ content: "Произошла неизвестная ошибка" });
     }
   };
 

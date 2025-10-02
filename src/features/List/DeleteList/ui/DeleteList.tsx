@@ -1,6 +1,4 @@
 import { message } from "antd";
-import { FirebaseError } from "firebase/app";
-import { getDatabase, ref, remove } from "firebase/database";
 import { useState } from "react";
 
 import { useAuthContext } from "@/features/Auth";
@@ -10,6 +8,8 @@ import { Modal } from "@/shared/ui/Modal";
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
 
+import { useRemoveListMutation } from "../../model/api/listApi";
+
 import cls from "./DeleteList.module.scss";
 
 interface DeleteListProps {
@@ -17,29 +17,24 @@ interface DeleteListProps {
 }
 
 export const DeleteList = (props: DeleteListProps) => {
+  const { listId } = props;
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { user } = useAuthContext();
 
-  const { listId } = props;
+  const [removeList] = useRemoveListMutation();
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
   const handleDelete = async () => {
-    const db = getDatabase();
-    const list = ref(db, `users/${user?.uid}/${listId}`);
     try {
-      await remove(list);
+      await removeList({ listId, userId: user?.uid || "" });
       message.success({ content: "Список удалён!" });
       console.log("Список удалён!");
       handleClose();
     } catch (error) {
-      console.log(error);
-      if (error instanceof FirebaseError) {
-        messageApi.error({ content: error.message });
-      } else {
-        messageApi.error({ content: "Произошла неизвестная ошибка" });
-      }
+      console.error(error);
+      messageApi.error({ content: "Произошла неизвестная ошибка" });
     }
   };
 

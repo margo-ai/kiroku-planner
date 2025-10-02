@@ -1,6 +1,6 @@
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import classnames from "classnames";
-import { memo, useEffect, useState } from "react";
+import { memo, useMemo, useState } from "react";
 
 import { ITaskList } from "@/entities/List";
 import { Task } from "@/entities/Task";
@@ -24,11 +24,10 @@ export const TaskList = memo((props: TaskListProps) => {
 
   const [isDeleteButtonVisible, setIsDeleteButtonVisible] = useState(false);
 
-  const newTaskOrder = tasks.length ? tasks[tasks.length - 1].taskOrder + 1 : 1;
-
-  useEffect(() => {
-    console.log({ tasks });
-  }, [tasks]);
+  const newTaskOrder = useMemo(
+    () => (tasks.length ? tasks[tasks.length - 1].taskOrder + 1 : 1),
+    [tasks]
+  );
 
   return (
     <Draggable draggableId={listId} index={index}>
