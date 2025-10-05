@@ -1,10 +1,9 @@
-import { get, getDatabase, onValue, push, ref, remove, set } from "firebase/database";
+import { get, onValue, push, ref, remove, set } from "firebase/database";
 
+import { db } from "@/config/firebase";
 import { ITaskList } from "@/entities/List";
-import { mapListsFromDb } from "@/entities/List/lib/mapListsFromDb";
+import { mapListsFromDB } from "@/entities/List/lib/mapListsFromDB";
 import { baseApi } from "@/shared/api/rtk/baseApi";
-
-const db = getDatabase();
 
 export const listApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -15,7 +14,8 @@ export const listApi = baseApi.injectEndpoints({
         const snapshot = await get(userRef);
         const raw = snapshot.val();
 
-        const formattedLists = mapListsFromDb(raw);
+        const formattedLists = mapListsFromDB(raw);
+        console.log({ raw, formattedLists });
 
         return { data: formattedLists };
       },
@@ -28,7 +28,7 @@ export const listApi = baseApi.injectEndpoints({
         const unsubscribe = onValue(userRef, (snapshot) => {
           const raw = snapshot.val();
 
-          const formattedLists = mapListsFromDb(raw);
+          const formattedLists = mapListsFromDB(raw);
 
           updateCachedData(() => formattedLists);
         });

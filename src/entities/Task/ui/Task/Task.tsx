@@ -4,7 +4,7 @@ import classnames from "classnames";
 import { memo, useMemo, useState } from "react";
 
 import { useAuthContext } from "@/features/Auth";
-import { useDeleteTaskMutation } from "@/features/List/model/api/taskApi";
+import { useDeleteTaskMutation } from "@/shared/api/taskApi";
 import { getStringDate } from "@/shared/lib/helpers/getStringDate";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import { Stack } from "@/shared/ui/Stack";
@@ -83,6 +83,7 @@ export const Task = memo((props: TaskProps) => {
               <li
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
+                data-testid="task-item"
                 ref={provided.innerRef}
                 className={classnames(cls.task, {
                   [cls.dragging]: snapshot.isDragging,

@@ -16,17 +16,19 @@ interface SelectProps extends HTMLSelectProps {
   label: string;
   className?: string;
   size?: SelectSize;
+  dataTestId?: string;
 }
 
 type SelectRef = React.ComponentRef<typeof AntdSelect>;
 
 export const Select = memo(
   forwardRef<SelectRef, SelectProps>((props, forwardedRef) => {
-    const { className, label, size = "m", ...otherProps } = props;
+    const { className, label, size = "m", dataTestId, ...otherProps } = props;
 
     const select = (
       <div className={cls.selectWrapper}>
         <AntdSelect
+          data-testid={dataTestId}
           ref={forwardedRef}
           className={classnames("", {}, [className, cls[size]])}
           {...otherProps}

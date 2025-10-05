@@ -12,7 +12,7 @@ import { Typography } from "@/shared/ui/Typography";
 
 import cls from "./AvatarDropdown.module.scss";
 
-const fallbackImgLink = "@/shared/assets/images/image-avatar-fallback.svg";
+const fallbackImgLink = "src/shared/assets/images/image-avatar-fallback.svg";
 
 export const AvatarDropdown = () => {
   const navigate = useNavigate();
@@ -53,17 +53,22 @@ export const AvatarDropdown = () => {
       <Skeleton width={100} height={20} />
     </Stack>
   ) : (
-    <Button className={cls.avatarButton} variant="clear">
+    <Button data-testid="avatar-button" className={cls.avatarButton} variant="clear">
       <Avatar size={50} src={user?.photo ?? fallbackImgLink} />
-      <Typography title={user?.name ?? ""} />
+      <Typography dataTestId="user-name" title={user?.name ?? ""} />
     </Button>
   );
   return (
-    <>
+    <div>
       {contextHolder}
-      <Dropdown className={cls.avatarDropdown} items={items} triggerEvent="click">
+      <Dropdown
+        data-testid="avatar-dropdown"
+        className={cls.avatarDropdown}
+        items={items}
+        triggerEvent="click"
+      >
         {trigger}
       </Dropdown>
-    </>
+    </div>
   );
 };

@@ -2,13 +2,12 @@ import { message } from "antd";
 import { useState } from "react";
 
 import { useAuthContext } from "@/features/Auth";
+import { useRemoveListMutation } from "@/shared/api/listApi";
 import DeleteIcon from "@/shared/assets/icons/delete.svg";
 import { Button } from "@/shared/ui/Button";
 import { Modal } from "@/shared/ui/Modal";
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
-
-import { useRemoveListMutation } from "../../model/api/listApi";
 
 import cls from "./DeleteList.module.scss";
 
@@ -46,13 +45,14 @@ export const DeleteList = (props: DeleteListProps) => {
     <>
       {contextHolder}
       <Button
+        data-testid="delete-list-button"
         variant="clear"
         className={cls.deleteTaskBtn}
         onClick={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
       >
         <DeleteIcon />
       </Button>
-      <Modal isOpen={isDeleteModalOpen} onClose={handleClose}>
+      <Modal dataTestId="delete-list-modal" isOpen={isDeleteModalOpen} onClose={handleClose}>
         <Typography size="l" title="Удалить список?" titleMb={24} />
         <Stack gap="24">
           <Button

@@ -5,13 +5,12 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { useAuthContext } from "@/features/Auth";
+import { useAddListMutation } from "@/shared/api/listApi";
 import PlusIcon from "@/shared/assets/icons/plus.svg";
 import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
 import { Modal } from "@/shared/ui/Modal";
 import { Typography } from "@/shared/ui/Typography";
-
-import { useAddListMutation } from "../../model/api/listApi";
 
 import cls from "./AddList.module.scss";
 
@@ -54,7 +53,7 @@ export const AddList = memo((props: AddListProps) => {
 
   useEffect(() => {
     if (isModalOpen) {
-      const id = setTimeout(() => setFocus("listTitle"), 500); // синхронизируем с анимацией модалки
+      const id = setTimeout(() => setFocus("listTitle"), 500); // синхронизация с анимацией модалки
       return () => clearTimeout(id);
     }
   }, [isModalOpen, setFocus]);
@@ -81,10 +80,15 @@ export const AddList = memo((props: AddListProps) => {
   return (
     <>
       {contextHolder}
-      <Button variant="clear" onClick={() => setIsModalOpen(true)} className={cls.addListBtn}>
+      <Button
+        data-testid="add-list-button"
+        variant="clear"
+        onClick={() => setIsModalOpen(true)}
+        className={cls.addListBtn}
+      >
         <PlusIcon />
       </Button>
-      <Modal onClose={onModalClose} isOpen={isModalOpen}>
+      <Modal dataTestId="add-list-modal" onClose={onModalClose} isOpen={isModalOpen}>
         <Typography title="Создание списка" titleMb={24} />
         <form className={cls.form} name="Add list form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
@@ -94,6 +98,7 @@ export const AddList = memo((props: AddListProps) => {
               <Input
                 {...field}
                 autoFocus
+                data-testid="add-list-input"
                 placeholder="Название списка"
                 validateErrorMessage={errors.listTitle?.message}
               />

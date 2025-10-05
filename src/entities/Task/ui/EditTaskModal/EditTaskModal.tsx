@@ -5,7 +5,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { useAuthContext } from "@/features/Auth";
-import { useUpdateTaskMutation } from "@/features/List/model/api/taskApi";
+import { useUpdateTaskMutation } from "@/shared/api/taskApi";
 import { priorityOptions } from "@/shared/const/options";
 import { Button } from "@/shared/ui/Button";
 import { DateInput, Input } from "@/shared/ui/Input";
@@ -100,7 +100,7 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
   return (
     <>
       {contextHolder}
-      <Modal isOpen={isModalOpen} onClose={handleClose}>
+      <Modal dataTestId="edit-task-modal" isOpen={isModalOpen} onClose={handleClose}>
         <Typography title="Редактирование" titleMb={16} />
         <form className={cls.form} name="Edit task form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
@@ -119,7 +119,14 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
           <Controller
             control={control}
             name="description"
-            render={({ field }) => <TextArea {...field} autoFocus placeholder="Описание задачи" />}
+            render={({ field }) => (
+              <TextArea
+                {...field}
+                autoFocus
+                dataTestId="description-input"
+                placeholder="Описание задачи"
+              />
+            )}
           />
 
           <Controller

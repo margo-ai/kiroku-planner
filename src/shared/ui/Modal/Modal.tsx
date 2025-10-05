@@ -13,12 +13,13 @@ interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   className?: string;
+  dataTestId?: string;
 }
 
 const ANIMATION_DELAY = 500;
 
 export const Modal = (props: ModalProps) => {
-  const { children, className, isOpen, onClose } = props;
+  const { children, className, isOpen, dataTestId, onClose } = props;
 
   const { close, isClosing, isMounted } = useModal({
     animationDelay: ANIMATION_DELAY,
@@ -37,7 +38,7 @@ export const Modal = (props: ModalProps) => {
 
   return (
     <Portal>
-      <div className={classNames(cls.modal, mods, [className])}>
+      <div data-testid={dataTestId} className={classNames(cls.modal, mods, [className])}>
         <Overlay onClick={close} />
         <div className={cls.content}>{children}</div>
       </div>

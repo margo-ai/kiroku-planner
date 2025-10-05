@@ -1,9 +1,10 @@
-import { getDatabase, push, ref, remove, set, update } from "firebase/database";
+import { push, ref, remove, set, update } from "firebase/database";
 
+import { db } from "@/config/firebase";
 import { Priority } from "@/entities/Task";
 import { baseApi } from "@/shared/api/rtk/baseApi";
 
-interface NewTask {
+interface INewTask {
   userId: string;
   listId: string;
   taskOrder: number;
@@ -16,18 +17,16 @@ interface NewTask {
   description?: string;
 }
 
-interface EditTask {
+interface IEditTask {
   userId: string;
   listId: string;
   taskId: string;
   taskData: { title: string; priority: Priority; finishBy: number; description?: string };
 }
 
-const db = getDatabase();
-
 export const taskApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    addTask: build.mutation<void, NewTask>({
+    addTask: build.mutation<void, INewTask>({
       queryFn: async ({
         createdAt,
         createdBy,
@@ -74,7 +73,7 @@ export const taskApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["Tasks"]
     }),
-    updateTask: build.mutation<void, EditTask>({
+    updateTask: build.mutation<void, IEditTask>({
       queryFn: async ({ userId, listId, taskId, taskData }) => {
         try {
           const taskRef = ref(db, `users/${userId}/${listId}/tasks/${taskId}`);

@@ -3,11 +3,13 @@ import { TextareaHTMLAttributes, forwardRef, memo, useState } from "react";
 
 import cls from "./TextArea.module.scss";
 
-type HTMLTextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
+interface HTMLTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  dataTestId?: string;
+}
 
 export const TextArea = memo(
   forwardRef<HTMLTextAreaElement, HTMLTextAreaProps>((props, forwardedRef) => {
-    const { className, rows = 4, onFocus, onBlur, ...otherProps } = props;
+    const { className, rows = 4, dataTestId, onFocus, onBlur, ...otherProps } = props;
 
     const [isFocused, setIsFocused] = useState(false);
 
@@ -23,6 +25,7 @@ export const TextArea = memo(
 
     return (
       <textarea
+        data-testid={dataTestId}
         className={classnames(cls.textArea, { [cls.focused]: isFocused }, [className])}
         rows={rows}
         ref={forwardedRef}

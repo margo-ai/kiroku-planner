@@ -4,7 +4,6 @@ import { FirebaseError } from "firebase/app";
 import { User, updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import { auth } from "@/config/firebase";
@@ -114,6 +113,7 @@ export const ProfilePage = () => {
             render={({ field }) => (
               <Input
                 {...field}
+                data-testid="name-input"
                 readonly={!isEditMode}
                 labelInputGap="32"
                 placeholder="Имя пользователя"
@@ -131,6 +131,7 @@ export const ProfilePage = () => {
             render={({ field }) => (
               <Input
                 {...field}
+                data-testid="photo-input"
                 readonly={!isEditMode}
                 labelInputGap="32"
                 placeholder="Photo URL"

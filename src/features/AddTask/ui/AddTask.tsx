@@ -6,7 +6,7 @@ import * as yup from "yup";
 
 import { Priority } from "@/entities/Task";
 import { useAuthContext } from "@/features/Auth";
-import { useAddTaskMutation } from "@/features/List/model/api/taskApi";
+import { useAddTaskMutation } from "@/shared/api/taskApi";
 import PlusIcon from "@/shared/assets/icons/plus.svg";
 import { priorityOptions } from "@/shared/const/options";
 import { Button } from "@/shared/ui/Button";
@@ -106,10 +106,15 @@ export const AddTask = memo((props: AddTaskProps) => {
   return (
     <>
       {contextHolder}
-      <Button variant="clear" onClick={() => setIsModalOpen(true)} className={cls.addTaskBtn}>
+      <Button
+        data-testid="add-task-button"
+        variant="clear"
+        onClick={() => setIsModalOpen(true)}
+        className={cls.addTaskBtn}
+      >
         <PlusIcon />
       </Button>
-      <Modal onClose={handleClose} isOpen={isModalOpen}>
+      <Modal dataTestId="add-task-modal" onClose={handleClose} isOpen={isModalOpen}>
         <Typography title="Добавление задачи" titleMb={24} />
         <form className={cls.form} name="Add task form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
@@ -119,6 +124,7 @@ export const AddTask = memo((props: AddTaskProps) => {
               <Input
                 {...field}
                 autoFocus
+                data-testid="title-input"
                 placeholder="Название задачи"
                 validateErrorMessage={errors.title?.message}
               />
@@ -128,14 +134,27 @@ export const AddTask = memo((props: AddTaskProps) => {
           <Controller
             control={control}
             name="description"
-            render={({ field }) => <TextArea {...field} autoFocus placeholder="Описание задачи" />}
+            render={({ field }) => (
+              <TextArea
+                dataTestId="description-input"
+                {...field}
+                autoFocus
+                placeholder="Описание задачи"
+              />
+            )}
           />
 
           <Controller
             control={control}
             name="priority"
             render={({ field }) => (
-              <Select {...field} autoFocus label="Приоритет" options={priorityOptions} />
+              <Select
+                {...field}
+                autoFocus
+                dataTestId="priority-input"
+                label="Приоритет"
+                options={priorityOptions}
+              />
             )}
           />
 

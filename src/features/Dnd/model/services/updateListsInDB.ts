@@ -1,5 +1,6 @@
-import { getDatabase, ref, set } from "firebase/database";
+import { ref, set } from "firebase/database";
 
+import { db } from "@/config/firebase";
 import { ITaskList } from "@/entities/List";
 
 import { transformListsArrayToBDObject } from "../lib/transformListsArrayToBDObject";
@@ -12,7 +13,6 @@ export const updateListsInDB = async (taskLists: ITaskList[], userId: string) =>
 
   const bdFormatData = transformListsArrayToBDObject(sortedLists);
 
-  const db = getDatabase();
   await set(ref(db, `users/${userId}`), bdFormatData)
     .then(() => {
       console.log("Списки обновлены!");

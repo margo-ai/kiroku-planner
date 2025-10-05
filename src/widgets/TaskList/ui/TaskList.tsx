@@ -42,7 +42,12 @@ export const TaskList = memo((props: TaskListProps) => {
           onMouseOver={() => setIsDeleteButtonVisible(true)}
           onMouseLeave={() => setIsDeleteButtonVisible(false)}
         >
-          <Stack fullWidth justify="space-between" className={cls.listHeader}>
+          <Stack
+            data-testid="list-header"
+            fullWidth
+            justify="space-between"
+            className={cls.listHeader}
+          >
             <Typography bold size="l" title={listTitle} className={cls.title} />
             {isDeleteButtonVisible && <DeleteList listId={listId} />}
           </Stack>
@@ -51,6 +56,7 @@ export const TaskList = memo((props: TaskListProps) => {
             {(provided, snapshot) => (
               <ul
                 {...provided.droppableProps}
+                data-testid="tasks-list"
                 ref={provided.innerRef}
                 className={classnames(cls.taskList, { [cls.dragOver]: snapshot.isDraggingOver })}
               >
