@@ -21,8 +21,12 @@
   },
   // "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "include": [
-    // "./config/jest/setupTests.ts",
+    "./tests/**/*.spec.ts",
     "./src/**/*.ts",
-    "./src/**/*.tsx"
-  ]
+    "./src/**/*.tsx",
+    "src/shared/lib/helpers/getStringDate.test.ts",
+    "setupTests.ts",
+    "playwright.config.ts"
+  ],
+  "exclude": ["vite.config.ts"]
 }

@@ -2,28 +2,27 @@ import { ITask } from "@/entities/Task";
 
 import { ITaskList } from "../model/types/list";
 
-export const mapListsFromDb = (rawData: any) => {
-  const formattedLists: ITaskList[] = [];
+type RawTask = Omit<ITask, "taskId">;
 
-  Object.entries(rawData).forEach(([key, value]) => {
-    const listValue = value as {
-      listOrder: number;
-      listTitle: string;
-      tasks: ITask[];
-    };
+type RawTasks = Record<string, RawTask>;
+type RawList = {
+  listOrder: number;
+  listTitle: string;
+  tasks?: RawTasks;
+};
+type RawDataType = Record<string, RawList> | null;
 
-    let tasks: ITask[];
-    if (listValue["tasks"]) {
-      tasks = Object.entries(listValue["tasks"])
-        .map(([key, value]) => {
-          return { ...value, taskId: key };
-        })
-        .sort((a, b) => a.taskOrder - b.taskOrder);
-    } else {
-      tasks = [];
-    }
+export const mapListsFromDB = (rawData: RawDataType) => {
+  if (rawData === null) return [];
 
-    formattedLists.push({ ...listValue, tasks, listId: key });
+  const formattedLists: ITaskList[] = Object.entries(rawData).map(([listId, list]) => {
+    const tasks: ITask[] = list.tasks
+      ? Object.entries(list.tasks)
+          .map(([taskId, task]) => ({ ...task, taskId }))
+          .sort((a, b) => a.taskOrder - b.taskOrder)
+      : [];
+
+    return { ...list, tasks, listId };
   });
 
   formattedLists.sort((a, b) => a.listOrder - b.listOrder);

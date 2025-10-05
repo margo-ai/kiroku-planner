@@ -1,5 +1,5 @@
-export const getStringDate = (ISODate: number) => {
-  const stringDate = new Date(ISODate).toLocaleDateString("ru-RU", {
+export const getStringDate = (numberDate: number) => {
+  const stringDate = new Date(numberDate).toLocaleDateString("ru-RU", {
     day: "numeric",
     month: "short",
     year: "numeric"
