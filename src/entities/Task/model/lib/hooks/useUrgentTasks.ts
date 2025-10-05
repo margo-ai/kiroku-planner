@@ -5,13 +5,19 @@ import { ITaskList } from "@/entities/List";
 import { ITask } from "../../types/task";
 import { getUrgentTasks } from "../helpers/getUrgentTasks";
 
-export const useUrgentTasks = (lists: ITaskList[], listsLoading: boolean) => {
+export const useUrgentTasks = (listsLoading: boolean, lists?: ITaskList[]) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [isTasksLoading, setIsTasksLoading] = useState(true);
 
   useEffect(() => {
     if (listsLoading) {
       setIsTasksLoading(true);
+      return;
+    }
+
+    if (!lists) {
+      setTasks([]);
+      setIsTasksLoading(false);
       return;
     }
 

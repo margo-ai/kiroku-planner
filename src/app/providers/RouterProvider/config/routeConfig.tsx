@@ -1,11 +1,11 @@
 import { RouteProps } from "react-router-dom";
 
-import { BoardPage } from "@/Pages/BoardPage";
-import { HomePage } from "@/Pages/HomePage";
-import { LoginPage } from "@/Pages/LoginPage";
-import { NotFoundPage } from "@/Pages/NotFoundPage";
-import { ProfilePage } from "@/Pages/ProfilePage";
-import { RegistrationPage } from "@/Pages/RegistrationPage";
+import { BoardPage } from "@/pages/BoardPage";
+import { HomePage } from "@/pages/HomePage";
+import { LoginPage } from "@/pages/LoginPage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
+import { ProfilePage } from "@/pages/ProfilePage";
+import { RegistrationPage } from "@/pages/RegistrationPage";
 
 import { ProtectedRoute } from "./routeGuard";
 
