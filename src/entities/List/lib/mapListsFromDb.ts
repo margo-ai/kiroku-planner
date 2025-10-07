@@ -1,24 +1,25 @@
-import { ITask } from "@/entities/Task";
+import { ITask, Priority } from "@/entities/Task";
 
 import { ITaskList } from "../model/types/list";
 
-type RawTask = Omit<ITask, "taskId">;
+type DBTask = Omit<ITask, "taskId" | "priority"> & {
+  priority: string;
+};
 
-type RawTasks = Record<string, RawTask>;
-type RawList = {
+type DBTasks = Record<string, DBTask>;
+type DBList = {
   listOrder: number;
   listTitle: string;
-  tasks?: RawTasks;
+  tasks?: DBTasks;
 };
-type RawDataType = Record<string, RawList> | null;
+type DBListsType = Record<string, DBList> | null;
 
-export const mapListsFromDB = (rawData: RawDataType) => {
+export const mapListsFromDB = (rawData: DBListsType) => {
   if (rawData === null) return [];
-
   const formattedLists: ITaskList[] = Object.entries(rawData).map(([listId, list]) => {
     const tasks: ITask[] = list.tasks
       ? Object.entries(list.tasks)
-          .map(([taskId, task]) => ({ ...task, taskId }))
+          .map(([taskId, task]) => ({ ...task, priority: task.priority as Priority, taskId }))
           .sort((a, b) => a.taskOrder - b.taskOrder)
       : [];
 

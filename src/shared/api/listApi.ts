@@ -3,7 +3,8 @@ import { get, onValue, push, ref, remove, set } from "firebase/database";
 import { db } from "@/config/firebase";
 import { ITaskList } from "@/entities/List";
 import { mapListsFromDB } from "@/entities/List/lib/mapListsFromDB";
-import { baseApi } from "@/shared/api/rtk/baseApi";
+
+import { baseApi } from "./baseApi";
 
 export const listApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -15,7 +16,6 @@ export const listApi = baseApi.injectEndpoints({
         const raw = snapshot.val();
 
         const formattedLists = mapListsFromDB(raw);
-        console.log({ raw, formattedLists });
 
         return { data: formattedLists };
       },

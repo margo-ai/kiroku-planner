@@ -27,7 +27,7 @@ const schema: yup.ObjectSchema<Inputs> = yup
   })
   .required();
 
-export const ProfilePage = () => {
+const ProfilePage = () => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const { user, refreshUser } = useAuthContext();
@@ -62,11 +62,9 @@ export const ProfilePage = () => {
         displayName: data.name,
         photoURL: data.photoUrl
       });
-      console.log("Профиль обновлён!");
       messageApi.success({ content: "Профиль обновлён!" });
       refreshUser();
     } catch (error) {
-      console.log(error);
       if (error instanceof FirebaseError) {
         messageApi.error({ content: error.message });
       } else {
@@ -75,7 +73,7 @@ export const ProfilePage = () => {
     }
   };
 
-  const onCancel = () => {
+  const handleCancel = () => {
     setIsEditMode(false);
     reset();
   };
@@ -87,7 +85,7 @@ export const ProfilePage = () => {
         <Typography bold title="Данные пользователя" Tag="h1" size="l" />
         {isEditMode ? (
           <Stack gap="12">
-            <Button color="error" onClick={onCancel}>
+            <Button color="error" onClick={handleCancel}>
               Отмена
             </Button>
             <Button color="success" type="submit" form="profile-form">
@@ -144,3 +142,5 @@ export const ProfilePage = () => {
     </Stack>
   );
 };
+
+export default ProfilePage;

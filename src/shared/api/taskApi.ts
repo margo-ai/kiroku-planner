@@ -2,7 +2,8 @@ import { push, ref, remove, set, update } from "firebase/database";
 
 import { db } from "@/config/firebase";
 import { Priority } from "@/entities/Task";
-import { baseApi } from "@/shared/api/rtk/baseApi";
+
+import { baseApi } from "./baseApi";
 
 interface INewTask {
   userId: string;

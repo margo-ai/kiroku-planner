@@ -1,8 +1,10 @@
 import { message } from "antd";
 import { FirebaseError } from "firebase/app";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "@/features/Auth";
+import fallbackImg from "@/shared/assets/images/image-avatar-fallback.svg?url";
 import { Avatar } from "@/shared/ui/Avatar";
 import { Button } from "@/shared/ui/Button";
 import { Dropdown, DropdownItem } from "@/shared/ui/Dropdown";
@@ -11,8 +13,6 @@ import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
 
 import cls from "./AvatarDropdown.module.scss";
-
-const fallbackImgLink = "src/shared/assets/images/image-avatar-fallback.svg";
 
 export const AvatarDropdown = () => {
   const navigate = useNavigate();
@@ -33,28 +33,31 @@ export const AvatarDropdown = () => {
     }
   };
 
-  const items: DropdownItem[] = [
-    {
-      key: "1",
-      content: "На доску",
-      href: "/board"
-    },
-    {
-      key: "2",
-      content: "Профиль",
-      href: "/profile"
-    },
-    { key: "3", content: "Выйти", onClick: handleLogout }
-  ];
+  const items: DropdownItem[] = useMemo(
+    () => [
+      {
+        key: "1",
+        content: "На доску",
+        href: "/board"
+      },
+      {
+        key: "2",
+        content: "Профиль",
+        href: "/profile"
+      },
+      { key: "3", content: "Выйти", onClick: handleLogout }
+    ],
+    []
+  );
 
-  const trigger = loading ? (
+  const triggerElement = loading ? (
     <Stack gap="12">
       <Skeleton width={50} height={50} borderRadius="50%" />
       <Skeleton width={100} height={20} />
     </Stack>
   ) : (
     <Button data-testid="avatar-button" className={cls.avatarButton} variant="clear">
-      <Avatar size={50} src={user?.photo ?? fallbackImgLink} />
+      <Avatar size={50} src={user?.photo ?? fallbackImg} />
       <Typography dataTestId="user-name" title={user?.name ?? ""} />
     </Button>
   );
@@ -64,10 +67,10 @@ export const AvatarDropdown = () => {
       <Dropdown
         data-testid="avatar-dropdown"
         className={cls.avatarDropdown}
-        items={items}
-        triggerEvent="click"
+        menu={items}
+        trigger={["click"]}
       >
-        {trigger}
+        {triggerElement}
       </Dropdown>
     </div>
   );

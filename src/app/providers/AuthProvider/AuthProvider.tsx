@@ -8,10 +8,8 @@ import {
 } from "firebase/auth";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { AuthContext, AuthContextType } from "@/features/Auth";
-
-import { auth } from "../../../config/firebase";
-import { UserData } from "../../../shared/types";
+import { auth } from "@/config/firebase";
+import { AuthContext, AuthContextType, UserData } from "@/features/Auth";
 
 const mapUser = (firebaseUser: User): UserData => ({
   uid: firebaseUser.uid,
@@ -44,8 +42,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return userData;
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.log(error);
-
+        console.error(error.message);
         setError(error.message);
       } else {
         setError("Произошла неизвестная ошибка");

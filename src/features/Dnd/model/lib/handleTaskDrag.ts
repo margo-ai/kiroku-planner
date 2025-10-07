@@ -11,8 +11,6 @@ export const handleTaskDrag = async (
   lists: ITaskList[],
   userId: string
 ) => {
-  console.log({ lists });
-
   const newTaskLists = structuredClone(lists);
 
   const sourceListIndex = newTaskLists.findIndex((list) => list.listId === source.droppableId);
@@ -36,6 +34,5 @@ export const handleTaskDrag = async (
     task.taskOrder = index;
   });
 
-  console.log({ newTaskLists });
   await updateListsInDB(newTaskLists, userId);
 };

@@ -77,10 +77,16 @@ export const AuthForm = (props: AuthFormProps) => {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
+
   if (error) {
     return (
       <div className={cls.formWrapper}>
-        <Typography titleMb={16} size="l" title="Произошла ошибка" />
+        <Typography titleMb={16} size="l" title={`Произошла ошибка: ${error}`} />
         <Button variant="outline" onClick={() => window.location.reload()}>
           Обновить страницу
         </Button>
@@ -88,16 +94,10 @@ export const AuthForm = (props: AuthFormProps) => {
     );
   }
 
-  useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
-  }, [user]);
-
   return (
     <div className={cls.formWrapper}>
       <form
-        data-testid="login-form"
+        data-testid="auth-form"
         className={cls.form}
         name="Auth form"
         onSubmit={handleSubmit(onSubmit)}

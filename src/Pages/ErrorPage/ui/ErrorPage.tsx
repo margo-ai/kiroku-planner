@@ -5,7 +5,7 @@ import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
 
 const ErrorPage = memo(() => {
-  const reloadPage = () => {
+  const handleReloadPage = () => {
     window.location.reload();
   };
 
@@ -19,7 +19,7 @@ const ErrorPage = memo(() => {
       style={{ height: "80vh" }}
     >
       <Typography titleMb={16} size="l" title="Произошла ошибка" />
-      <Button variant="outline" onClick={reloadPage}>
+      <Button variant="outline" onClick={handleReloadPage}>
         Обновить страницу
       </Button>
     </Stack>

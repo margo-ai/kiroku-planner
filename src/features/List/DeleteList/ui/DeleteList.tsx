@@ -27,17 +27,16 @@ export const DeleteList = (props: DeleteListProps) => {
 
   const handleDelete = async () => {
     try {
-      await removeList({ listId, userId: user?.uid || "" });
+      await removeList({ listId, userId: user?.uid || "" }).unwrap();
       message.success({ content: "Список удалён!" });
-      console.log("Список удалён!");
-      handleClose();
+      handleCloseModal();
     } catch (error) {
       console.error(error);
       messageApi.error({ content: "Произошла неизвестная ошибка" });
     }
   };
 
-  const handleClose = () => {
+  const handleCloseModal = () => {
     setIsDeleteModalOpen(!isDeleteModalOpen);
   };
 
@@ -47,12 +46,12 @@ export const DeleteList = (props: DeleteListProps) => {
       <Button
         data-testid="delete-list-button"
         variant="clear"
-        className={cls.deleteTaskBtn}
+        className={cls.deleteListBtn}
         onClick={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
       >
         <DeleteIcon />
       </Button>
-      <Modal dataTestId="delete-list-modal" isOpen={isDeleteModalOpen} onClose={handleClose}>
+      <Modal dataTestId="delete-list-modal" isOpen={isDeleteModalOpen} onClose={handleCloseModal}>
         <Typography size="l" title="Удалить список?" titleMb={24} />
         <Stack gap="24">
           <Button

@@ -63,16 +63,15 @@ export const AddList = memo((props: AddListProps) => {
 
     try {
       await addList({ listOrder, listTitle, userId: user?.uid || "" }).unwrap();
-      console.log("Список добавлен!");
       messageApi.success({ content: "Список добавлен!" });
-      onModalClose();
+      handleCloseModal();
     } catch (error) {
       console.error(error);
       messageApi.error({ content: "Произошла неизвестная ошибка" });
     }
   };
 
-  const onModalClose = () => {
+  const handleCloseModal = () => {
     reset();
     setIsModalOpen(false);
   };
@@ -88,7 +87,7 @@ export const AddList = memo((props: AddListProps) => {
       >
         <PlusIcon />
       </Button>
-      <Modal dataTestId="add-list-modal" onClose={onModalClose} isOpen={isModalOpen}>
+      <Modal dataTestId="add-list-modal" onClose={handleCloseModal} isOpen={isModalOpen}>
         <Typography title="Создание списка" titleMb={24} />
         <form className={cls.form} name="Add list form" onSubmit={handleSubmit(onSubmit)}>
           <Controller

@@ -12,7 +12,6 @@ export const handleListDrag = async (
 ) => {
   if (destination.droppableId === source.droppableId) {
     const newTaskLists = structuredClone(lists);
-    console.log(newTaskLists);
 
     const [removed] = newTaskLists.splice(source.index, 1);
     newTaskLists.splice(destination.index, 0, removed);
@@ -20,7 +19,6 @@ export const handleListDrag = async (
       ...list,
       listOrder: index
     }));
-    console.log({ updatedLists });
 
     await updateListsInDB(updatedLists, userId);
   }

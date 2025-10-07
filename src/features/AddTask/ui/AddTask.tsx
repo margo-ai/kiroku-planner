@@ -67,7 +67,7 @@ export const AddTask = memo((props: AddTaskProps) => {
 
   useEffect(() => {
     if (isModalOpen) {
-      const id = setTimeout(() => setFocus("title"), 500); // синхронизируем с анимацией модалки
+      const id = setTimeout(() => setFocus("title"), 500); // синхронизация с анимацией модалки
       return () => clearTimeout(id);
     }
   }, [isModalOpen, setFocus]);
@@ -89,7 +89,6 @@ export const AddTask = memo((props: AddTaskProps) => {
         userId: user?.uid ?? "",
         listId
       }).unwrap();
-      console.log("Задача добавлена!");
       messageApi.success({ content: "Задача добавлена!" });
       handleClose();
     } catch (error) {
@@ -135,12 +134,7 @@ export const AddTask = memo((props: AddTaskProps) => {
             control={control}
             name="description"
             render={({ field }) => (
-              <TextArea
-                dataTestId="description-input"
-                {...field}
-                autoFocus
-                placeholder="Описание задачи"
-              />
+              <TextArea {...field} dataTestId="description-input" placeholder="Описание задачи" />
             )}
           />
 
@@ -150,7 +144,6 @@ export const AddTask = memo((props: AddTaskProps) => {
             render={({ field }) => (
               <Select
                 {...field}
-                autoFocus
                 dataTestId="priority-input"
                 label="Приоритет"
                 options={priorityOptions}

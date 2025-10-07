@@ -12,7 +12,7 @@ test("Проверка переадресации на страницу авто
 test("Проверка регистрации", async ({ page }) => {
   await page.goto(`${BASE_URL}registration`);
 
-  await expect(page.getByTestId("registration-form")).toBeVisible();
+  await expect(page.getByTestId("auth-form")).toBeVisible();
   await page.getByTestId("email-input").fill(USER_DATA.email);
   await page.getByTestId("password-input").fill(USER_DATA.password);
   await page.getByTestId("password-confirm-input").fill(USER_DATA.password);
@@ -22,7 +22,19 @@ test("Проверка регистрации", async ({ page }) => {
   await page.waitForURL(BASE_URL);
 });
 
-test.beforeEach(async ({ page }) => {
+// test.beforeEach(async ({ page }) => {
+//   await page.goto(`${BASE_URL}login`);
+
+//   await page.getByTestId("email-input").fill(USER_DATA.email);
+//   await page.getByTestId("password-input").fill(USER_DATA.password);
+
+//   await page.getByRole("button", { name: "Войти" }).click();
+
+//   await page.waitForURL(`${BASE_URL}`, { timeout: 10000 });
+//   await expect(page.getByTestId("main-page")).toBeVisible();
+// });
+
+test("Проверка перехода на доску с задачами", async ({ page }) => {
   await page.goto(`${BASE_URL}login`);
 
   await page.getByTestId("email-input").fill(USER_DATA.email);
@@ -32,9 +44,7 @@ test.beforeEach(async ({ page }) => {
 
   await page.waitForURL(`${BASE_URL}`, { timeout: 10000 });
   await expect(page.getByTestId("main-page")).toBeVisible();
-});
 
-test("Проверка перехода на доску с задачами", async ({ page }) => {
   await page.goto(BASE_URL);
 
   const avatarButton = page.getByTestId("avatar-button");

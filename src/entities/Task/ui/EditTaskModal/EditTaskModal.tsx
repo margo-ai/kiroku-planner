@@ -69,14 +69,12 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
 
   useEffect(() => {
     if (isModalOpen) {
-      const id = setTimeout(() => setFocus("title"), 500); // синхронизируем с анимацией модалки
+      const id = setTimeout(() => setFocus("title"), 500); // синхронизация с анимацией модалки
       return () => clearTimeout(id);
     }
   }, [isModalOpen]);
 
   const onSubmit: SubmitHandler<ITaskFields> = async (data) => {
-    console.log({ ...data, finishBy: data.finishBy.getTime() });
-
     try {
       await updateTask({
         listId,
@@ -84,23 +82,18 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
         taskId,
         taskData: { ...data, finishBy: data.finishBy.getTime() }
       }).unwrap();
-      console.log("Задача изменена!");
       messageApi.success({ content: "Задача изменена!" });
-      handleClose();
+      onClose();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       messageApi.error({ content: "Произошла неизвестная ошибка" });
     }
-  };
-
-  const handleClose = () => {
-    onClose();
   };
 
   return (
     <>
       {contextHolder}
-      <Modal dataTestId="edit-task-modal" isOpen={isModalOpen} onClose={handleClose}>
+      <Modal dataTestId="edit-task-modal" isOpen={isModalOpen} onClose={onClose}>
         <Typography title="Редактирование" titleMb={16} />
         <form className={cls.form} name="Edit task form" onSubmit={handleSubmit(onSubmit)}>
           <Controller

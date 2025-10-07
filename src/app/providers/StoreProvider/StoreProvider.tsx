@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { ReactNode } from "react";
 import { Provider } from "react-redux";
 
-import { baseApi } from "@/shared/api/rtk/baseApi";
+import { baseApi } from "@/shared/api/baseApi";
 
 export const StoreProvider = ({ children }: { children: ReactNode }) => {
   const store = configureStore({

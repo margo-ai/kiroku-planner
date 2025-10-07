@@ -1,6 +1,7 @@
-import { Dropdown as AntdDropdown, MenuProps } from "antd";
+import { Dropdown as AntdDropdown, DropdownProps as AntdDropdownProps, MenuProps } from "antd";
 import classnames from "classnames";
 import { ReactNode, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import cls from "./Dropdown.module.scss";
 
@@ -12,19 +13,18 @@ export interface DropdownItem {
   onClick?: () => void;
 }
 
-interface DropdownProps {
+interface DropdownProps extends Omit<AntdDropdownProps, "menu"> {
   children: ReactNode;
-  items: DropdownItem[];
-  triggerEvent?: "click" | "hover" | "contextMenu";
+  menu: DropdownItem[];
   className?: string;
 }
 
 export const Dropdown = (props: DropdownProps) => {
-  const { items, children, triggerEvent = "hover", className } = props;
+  const { menu, children, trigger = ["hover"], className, ...otherProps } = props;
 
-  const preparedItems: MenuProps["items"] = items.map((item) => {
+  const preparedItems: MenuProps["items"] = menu?.map((item) => {
     if (item.href) {
-      return { key: item.key, label: <a href={item.href}>{item.content}</a> };
+      return { key: item.key, label: <Link to={item.href}>{item.content}</Link> };
     }
     return { key: item.key, label: <button onClick={item.onClick}>{item.content}</button> };
   });
@@ -41,7 +41,8 @@ export const Dropdown = (props: DropdownProps) => {
         className={cls.dropdown}
         getPopupContainer={getPopupContainer}
         menu={{ items: preparedItems }}
-        trigger={[triggerEvent]}
+        trigger={trigger}
+        {...otherProps}
       >
         {children}
       </AntdDropdown>

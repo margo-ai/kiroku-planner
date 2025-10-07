@@ -24,7 +24,6 @@ interface InputProps extends HTMLInputProps {
   className?: string;
   value?: string | number;
   label?: string;
-  autofocus?: boolean;
   readonly?: boolean;
   size?: InputSize;
   addonLeft?: ReactNode;
@@ -38,7 +37,7 @@ export const Input = memo(
       className,
       value,
       label,
-      autofocus,
+      autoFocus,
       addonLeft,
       placeholder,
       size = "m",
@@ -49,6 +48,7 @@ export const Input = memo(
       onChange,
       onBlur,
       onFocus,
+
       ...otherProps
     } = props;
 
@@ -56,11 +56,11 @@ export const Input = memo(
     const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
-      if (autofocus) {
+      if (autoFocus) {
         setIsFocused(true);
         internalRef.current?.focus();
       }
-    }, []);
+    }, [autoFocus]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(e);
@@ -91,7 +91,7 @@ export const Input = memo(
           ref={forwardedRef || internalRef}
           type={type}
           readOnly={readonly}
-          value={value || ""}
+          value={value}
           onBlur={handleBlur}
           onChange={handleChange}
           onFocus={handleFocus}

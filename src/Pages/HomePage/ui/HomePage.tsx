@@ -18,7 +18,7 @@ const HomePage = () => {
 
   const { tasks, isTasksLoading } = useUrgentTasks(isLoading, lists);
 
-  const onClick = () => {
+  const handleClick = () => {
     navigate("/board");
   };
 
@@ -59,7 +59,7 @@ const HomePage = () => {
   return (
     <Stack data-testid="main-page" fullWidth direction="column">
       <Typography title="Срочных задач нет" Tag="h1" size="l" titleMb={24} />
-      <Button onClick={onClick}>Перейти к задачам</Button>
+      <Button onClick={handleClick}>Перейти к задачам</Button>
     </Stack>
   );
 };

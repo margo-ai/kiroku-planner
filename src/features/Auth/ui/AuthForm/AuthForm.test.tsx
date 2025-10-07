@@ -4,7 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import { describe, expect, test, vi } from "vitest";
 
 import { LoginPage } from "@/pages/LoginPage";
-import { UserData } from "@/shared/types";
+
+import { UserData } from "../../model/types";
 
 const mockUserData = {
   uid: "lI1JKa5ZCXaSgORBVjIJeqN55Dz2",

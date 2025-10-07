@@ -63,7 +63,6 @@ export const Task = memo((props: TaskProps) => {
     try {
       await deleteTask({ listId: listId || "y", taskId, userId: user?.uid || "" }).unwrap();
       message.success({ content: "Задача удалена!" });
-      console.log("Задача удалена!");
     } catch (error) {
       console.error(error);
       messageApi.error({ content: "Произошла неизвестная ошибка" });
@@ -77,8 +76,8 @@ export const Task = memo((props: TaskProps) => {
         <Draggable draggableId={taskId} index={index}>
           {(provided, snapshot) => (
             <Dropdown
-              items={[{ key: "1", content: "Удалить задачу", onClick: handleDeleteTask }]}
-              triggerEvent="contextMenu"
+              menu={[{ key: "1", content: "Удалить задачу", onClick: handleDeleteTask }]}
+              trigger={["contextMenu"]}
             >
               <li
                 {...provided.draggableProps}

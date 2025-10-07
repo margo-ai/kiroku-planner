@@ -3,18 +3,10 @@ import { createContext, useContext } from "react";
 import { AuthContextType } from "../types";
 
 const AuthDefaultContextValue: AuthContextType = {
-  async signUp() {
-    throw new Error("AuthProvider not mounted");
-  },
-  async signIn() {
-    throw new Error("AuthProvider not mounted");
-  },
-  async logOut() {
-    throw new Error("AuthProvider not mounted");
-  },
-  async refreshUser() {
-    throw new Error("AuthProvider not mounted");
-  },
+  signUp: () => Promise.resolve(undefined),
+  signIn: () => Promise.resolve(undefined),
+  logOut: () => Promise.resolve(),
+  refreshUser: () => Promise.resolve(),
   user: null,
   loading: true,
   error: null

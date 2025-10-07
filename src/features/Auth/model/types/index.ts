@@ -1,6 +1,11 @@
 import { UserCredential } from "firebase/auth";
 
-import { UserData } from "../../../../shared/types";
+export type UserData = {
+  uid: string;
+  email: string | null;
+  name: string | null;
+  photo: string | null;
+};
 
 export interface AuthContextType {
   signUp: (email: string, password: string) => Promise<UserCredential | undefined>;
