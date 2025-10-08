@@ -4,8 +4,7 @@ import { useMemo } from "react";
 
 import { useAuthContext } from "@/features/Auth";
 import { useDnd } from "@/features/Dnd";
-import { AddList } from "@/features/List/AddList";
-import { useGetListsByUserQuery } from "@/shared/api/listApi";
+import { AddList, useGetListsByUserQuery } from "@/features/List";
 import { Loader } from "@/shared/ui/Loader";
 import { Stack } from "@/shared/ui/Stack";
 import { TaskList } from "@/widgets/TaskList";

@@ -4,9 +4,8 @@ import { memo, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
-import { Priority } from "@/entities/Task";
+import { Priority, useAddTaskMutation } from "@/entities/Task";
 import { useAuthContext } from "@/features/Auth";
-import { useAddTaskMutation } from "@/shared/api/taskApi";
 import PlusIcon from "@/shared/assets/icons/plus.svg";
 import { priorityOptions } from "@/shared/const/options";
 import { Button } from "@/shared/ui/Button";

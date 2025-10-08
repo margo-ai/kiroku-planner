@@ -5,7 +5,6 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { useAuthContext } from "@/features/Auth";
-import { useUpdateTaskMutation } from "@/shared/api/taskApi";
 import { priorityOptions } from "@/shared/const/options";
 import { Button } from "@/shared/ui/Button";
 import { DateInput, Input } from "@/shared/ui/Input";
@@ -14,6 +13,7 @@ import { Select } from "@/shared/ui/Select";
 import { TextArea } from "@/shared/ui/TextArea";
 import { Typography } from "@/shared/ui/Typography";
 
+import { useUpdateTaskMutation } from "../../api/taskApi";
 import { Priority } from "../../model/types/task";
 
 import cls from "./EditTaskModal.module.scss";

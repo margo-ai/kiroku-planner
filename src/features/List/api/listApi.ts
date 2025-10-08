@@ -3,8 +3,7 @@ import { get, onValue, push, ref, remove, set } from "firebase/database";
 import { db } from "@/config/firebase";
 import { ITaskList } from "@/entities/List";
 import { mapListsFromDB } from "@/entities/List/lib/mapListsFromDB";
-
-import { baseApi } from "./baseApi";
+import { baseApi } from "@/shared/api/baseApi";
 
 export const listApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

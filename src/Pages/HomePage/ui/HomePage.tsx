@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Task } from "@/entities/Task";
 import { useUrgentTasks } from "@/entities/Task";
 import { useAuthContext } from "@/features/Auth";
-import { useGetListsByUserQuery } from "@/shared/api/listApi";
+import { useGetListsByUserQuery } from "@/features/List";
 import { Button } from "@/shared/ui/Button";
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
