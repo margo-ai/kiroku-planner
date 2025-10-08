@@ -2,12 +2,13 @@ import { message } from "antd";
 import { useState } from "react";
 
 import { useAuthContext } from "@/features/Auth";
-import { useRemoveListMutation } from "@/shared/api/listApi";
 import DeleteIcon from "@/shared/assets/icons/delete.svg";
 import { Button } from "@/shared/ui/Button";
 import { Modal } from "@/shared/ui/Modal";
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
+
+import { useRemoveListMutation } from "../../api/listApi";
 
 import cls from "./DeleteList.module.scss";
 

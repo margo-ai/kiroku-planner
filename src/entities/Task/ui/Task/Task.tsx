@@ -4,12 +4,12 @@ import classnames from "classnames";
 import { memo, useMemo, useState } from "react";
 
 import { useAuthContext } from "@/features/Auth";
-import { useDeleteTaskMutation } from "@/shared/api/taskApi";
 import { getStringDate } from "@/shared/lib/helpers/getStringDate";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
 
+import { useDeleteTaskMutation } from "../../api/taskApi";
 import { ITask } from "../../model/types/task";
 import { EditTaskModal } from "../EditTaskModal/EditTaskModal";
 

@@ -5,12 +5,13 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { useAuthContext } from "@/features/Auth";
-import { useAddListMutation } from "@/shared/api/listApi";
 import PlusIcon from "@/shared/assets/icons/plus.svg";
 import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
 import { Modal } from "@/shared/ui/Modal";
 import { Typography } from "@/shared/ui/Typography";
+
+import { useAddListMutation } from "../../api/listApi";
 
 import cls from "./AddList.module.scss";
 

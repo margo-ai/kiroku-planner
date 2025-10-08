@@ -5,7 +5,7 @@ import { memo, useMemo, useState } from "react";
 import { ITaskList } from "@/entities/List";
 import { Task } from "@/entities/Task";
 import { AddTask } from "@/features/AddTask";
-import { DeleteList } from "@/features/List/DeleteList";
+import { DeleteList } from "@/features/List";
 import { Stack } from "@/shared/ui/Stack";
 import { Typography } from "@/shared/ui/Typography";
 
