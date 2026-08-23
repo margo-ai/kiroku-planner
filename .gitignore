@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 tsconfig.tsbuildinfo
-package-lock.json
+# package-lock.json — раскомментирован для CI/CD (npm ci требует lock-файл)
 
 # Playwright
 /test-results/
