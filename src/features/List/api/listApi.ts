@@ -2,7 +2,8 @@ import { get, onValue, push, ref, remove, set } from "firebase/database";
 
 import { db } from "@/config/firebase";
 import { ITaskList } from "@/entities/List";
-import { mapListsFromDB, type DBListsType } from "@/entities/List/lib/mapListsFromDB";
+import { mapListsFromDB } from "@/entities/List/lib/mapListsFromDB";
+import type { DBListsType } from "@/entities/List/lib/mapListsFromDB";
 import { baseApi } from "@/shared/api/baseApi";
 
 export const listApi = baseApi.injectEndpoints({
@@ -12,9 +13,10 @@ export const listApi = baseApi.injectEndpoints({
         const userRef = ref(db, `users/${userId}`);
 
         const snapshot = await get(userRef);
-        const raw: DBListsType = snapshot.val() as DBListsType;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const raw = snapshot.val();
 
-        const formattedLists = mapListsFromDB(raw);
+        const formattedLists = mapListsFromDB(raw as DBListsType);
 
         return { data: formattedLists };
       },
@@ -26,9 +28,10 @@ export const listApi = baseApi.injectEndpoints({
         const userRef = ref(db, `users/${userId}`);
 
         const unsubscribe = onValue(userRef, (snapshot) => {
-          const raw: DBListsType = snapshot.val() as DBListsType;
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          const raw = snapshot.val();
 
-          const formattedLists = mapListsFromDB(raw);
+          const formattedLists = mapListsFromDB(raw as DBListsType);
 
           updateCachedData(() => formattedLists);
         });
