@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:emulators": "vite --mode emulators",
-    "build": "tsc -b && vite build",
+    "build": "tsc --noEmit && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
