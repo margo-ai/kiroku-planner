@@ -1,4 +1,6 @@
-export const rawData = {
+import type { DBListsType } from "../mapListsFromDB";
+
+export const rawData: DBListsType = {
   "-O_i14zRVMVMO2qyi5D7": {
     listOrder: 0,
     listTitle: "список 1",

@@ -2,7 +2,7 @@ import { get, onValue, push, ref, remove, set } from "firebase/database";
 
 import { db } from "@/config/firebase";
 import { ITaskList } from "@/entities/List";
-import { mapListsFromDB } from "@/entities/List/lib/mapListsFromDB";
+import { mapListsFromDB, type DBListsType } from "@/entities/List/lib/mapListsFromDB";
 import { baseApi } from "@/shared/api/baseApi";
 
 export const listApi = baseApi.injectEndpoints({
@@ -12,10 +12,9 @@ export const listApi = baseApi.injectEndpoints({
         const userRef = ref(db, `users/${userId}`);
 
         const snapshot = await get(userRef);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const raw = snapshot.val();
+        const raw: DBListsType = snapshot.val() as DBListsType;
 
-        const formattedLists = mapListsFromDB(raw as never);
+        const formattedLists = mapListsFromDB(raw);
 
         return { data: formattedLists };
       },
@@ -27,10 +26,9 @@ export const listApi = baseApi.injectEndpoints({
         const userRef = ref(db, `users/${userId}`);
 
         const unsubscribe = onValue(userRef, (snapshot) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          const raw = snapshot.val();
+          const raw: DBListsType = snapshot.val() as DBListsType;
 
-          const formattedLists = mapListsFromDB(raw as never);
+          const formattedLists = mapListsFromDB(raw);
 
           updateCachedData(() => formattedLists);
         });
@@ -50,7 +48,7 @@ export const listApi = baseApi.injectEndpoints({
           });
 
           return { data: undefined };
-        } catch (error) {
+        } catch (error: unknown) {
           return { error };
         }
       },
@@ -63,7 +61,7 @@ export const listApi = baseApi.injectEndpoints({
           await remove(list);
 
           return { data: undefined };
-        } catch (error) {
+        } catch (error: unknown) {
           return { error };
         }
       },

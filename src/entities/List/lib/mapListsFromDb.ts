@@ -12,7 +12,7 @@ type DBList = {
   listTitle: string;
   tasks?: DBTasks;
 };
-type DBListsType = Record<string, DBList> | null;
+export type DBListsType = Record<string, DBList> | null;
 
 export const mapListsFromDB = (rawData: DBListsType) => {
   if (rawData === null) return [];
