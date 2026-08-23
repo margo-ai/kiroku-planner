@@ -54,6 +54,9 @@ export const Task = memo((props: TaskProps) => {
 
   const [messageApi, contextHolder] = message.useMessage();
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  const menuItems: { key: string; content: string; onClick: () => void }[] = [{ key: "1", content: "Удалить задачу", onClick: handleDeleteTask }];
+
   const taskFields = useMemo(
     () => ({ title, priority, description, finishBy: new Date(finishBy) }),
     [title, priority, description, finishBy]
@@ -76,7 +79,7 @@ export const Task = memo((props: TaskProps) => {
         <Draggable draggableId={taskId} index={index}>
           {(provided, snapshot) => (
             <Dropdown
-              menu={[{ key: "1", content: "Удалить задачу", onClick: handleDeleteTask }]}
+              menu={menuItems}
               trigger={["contextMenu"]}
             >
               <li

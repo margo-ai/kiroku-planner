@@ -7,12 +7,12 @@ export const transformListsArrayToDBObject = (listsArray: ITaskList[]) => {
 
     for (const task of list.tasks) {
       const { taskId, ...taskData } = task;
-      //@ts-ignore
+      //@ts-expect-error: dynamic index on empty object
       tasksObject[taskId] = { ...taskData };
     }
 
     const { listId, ...listData } = list;
-    //@ts-ignore
+    //@ts-expect-error: dynamic index on empty object
     result[listId] = {
       ...listData,
       tasks: { ...tasksObject }

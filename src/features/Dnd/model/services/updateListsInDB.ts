@@ -17,7 +17,7 @@ export const updateListsInDB = async (taskLists: ITaskList[], userId: string) =>
     .then(() => {
       console.log("Списки обновлены!");
     })
-    .catch((error) => {
+    .catch((error: Error) => {
       console.error(error);
       throw Error(error.message);
     });

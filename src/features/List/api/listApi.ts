@@ -12,22 +12,25 @@ export const listApi = baseApi.injectEndpoints({
         const userRef = ref(db, `users/${userId}`);
 
         const snapshot = await get(userRef);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const raw = snapshot.val();
 
-        const formattedLists = mapListsFromDB(raw);
+        const formattedLists = mapListsFromDB(raw as never);
 
         return { data: formattedLists };
       },
       providesTags: ["Lists"],
-      async onCacheEntryAdded(userId, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      onCacheEntryAdded: async (userId: string, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) => {
         await cacheDataLoaded;
 
         const userRef = ref(db, `users/${userId}`);
 
         const unsubscribe = onValue(userRef, (snapshot) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           const raw = snapshot.val();
 
-          const formattedLists = mapListsFromDB(raw);
+          const formattedLists = mapListsFromDB(raw as never);
 
           updateCachedData(() => formattedLists);
         });

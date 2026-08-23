@@ -61,7 +61,7 @@ describe("Форма авторизации", () => {
 
     const redirectBtn = screen.getByTestId("redirect-to-registration");
     expect(redirectBtn).toBeInTheDocument();
-    userEvent.click(redirectBtn);
+    await userEvent.click(redirectBtn);
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith("/registration");
     });

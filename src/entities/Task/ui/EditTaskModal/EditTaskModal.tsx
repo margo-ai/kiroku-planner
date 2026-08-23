@@ -69,10 +69,10 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
 
   useEffect(() => {
     if (isModalOpen) {
-      const id = setTimeout(() => setFocus("title"), 500); // синхронизация с анимацией модалки
+      const id = setTimeout(() => setFocus("title"), 500);
       return () => clearTimeout(id);
     }
-  }, [isModalOpen]);
+  }, [isModalOpen, setFocus]);
 
   const onSubmit: SubmitHandler<ITaskFields> = async (data) => {
     try {
@@ -95,6 +95,7 @@ export const EditTaskModal = (props: EditTaskModalProps) => {
       {contextHolder}
       <Modal dataTestId="edit-task-modal" isOpen={isModalOpen} onClose={onClose}>
         <Typography title="Редактирование" titleMb={16} />
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form className={cls.form} name="Edit task form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}

@@ -114,6 +114,7 @@ export const AddTask = memo((props: AddTaskProps) => {
       </Button>
       <Modal dataTestId="add-task-modal" isOpen={isModalOpen} onClose={handleClose}>
         <Typography title="Добавление задачи" titleMb={24} />
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form className={cls.form} name="Add task form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}

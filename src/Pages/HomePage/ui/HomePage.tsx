@@ -19,7 +19,7 @@ const HomePage = () => {
   const { tasks, isTasksLoading } = useUrgentTasks(isLoading, lists);
 
   const handleClick = () => {
-    navigate("/board");
+    void navigate("/board");
   };
 
   if (isTasksLoading) {

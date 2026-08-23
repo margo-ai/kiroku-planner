@@ -77,11 +77,14 @@ export const AuthForm = (props: AuthFormProps) => {
     }
   };
 
+  const submitForm = handleSubmit(onSubmit);
+  const handleRedirect = () => navigate(redirectPath);
+
   useEffect(() => {
     if (user) {
-      navigate("/");
+      void navigate("/");
     }
-  }, [user]);
+  }, [user, navigate]);
 
   if (error) {
     return (
@@ -96,12 +99,8 @@ export const AuthForm = (props: AuthFormProps) => {
 
   return (
     <div className={cls.formWrapper}>
-      <form
-        className={cls.form}
-        data-testid="auth-form"
-        name="Auth form"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+      <form className={cls.form} data-testid="auth-form" name="Auth form" onSubmit={submitForm}>
         <Controller
           control={control}
           name="email"
@@ -150,11 +149,8 @@ export const AuthForm = (props: AuthFormProps) => {
           {submitButtonText}
         </Button>
       </form>
-      <Button
-        data-testid="redirect-to-registration"
-        variant="clear"
-        onClick={() => navigate(redirectPath)}
-      >
+{/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+      <Button data-testid="redirect-to-registration" variant="clear" onClick={handleRedirect}>
         {redirectButtonText}
       </Button>
     </div>

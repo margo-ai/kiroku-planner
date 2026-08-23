@@ -17,6 +17,7 @@ const NotFoundPage = ({ className }: NotFoundPageProps) => {
   return (
     <Stack className={classnames(cls.notFoundPage, {}, [className])} direction="column">
       <Typography align="center" size="l" title="Страница не найдена" titleMb={16} />
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <Button variant="outline" onClick={() => navigate("/")}>
         Вернуться на главную страницу
       </Button>

@@ -90,6 +90,7 @@ export const AddList = memo((props: AddListProps) => {
       </Button>
       <Modal dataTestId="add-list-modal" isOpen={isModalOpen} onClose={handleCloseModal}>
         <Typography title="Создание списка" titleMb={24} />
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form className={cls.form} name="Add list form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}

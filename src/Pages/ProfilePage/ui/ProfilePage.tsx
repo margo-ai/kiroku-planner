@@ -48,13 +48,13 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
-    if (isEditMode) {
+if (isEditMode) {
       const id = setTimeout(() => setFocus("name"), 0);
       return () => clearTimeout(id);
     }
-  }, [isEditMode]);
+  }, [isEditMode, setFocus]);
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsEditMode(false);
     console.log(data);
     try {
@@ -63,7 +63,7 @@ const ProfilePage = () => {
         photoURL: data.photoUrl
       });
       messageApi.success({ content: "Профиль обновлён!" });
-      refreshUser();
+      await refreshUser();
     } catch (error) {
       if (error instanceof FirebaseError) {
         messageApi.error({ content: error.message });
@@ -72,6 +72,8 @@ const ProfilePage = () => {
       }
     }
   };
+
+  const submitForm = handleSubmit(onSubmit);
 
   const handleCancel = () => {
     setIsEditMode(false);
@@ -97,12 +99,8 @@ const ProfilePage = () => {
         )}
       </Stack>
 
-      <form
-        className={cls.form}
-        id="profile-form"
-        name="Edit profile form"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+      <form className={cls.form} id="profile-form" name="Edit profile form" onSubmit={submitForm}>
         <div className={cls.inputWrapper}>
           <Typography title="Пользователь" />
           <Controller

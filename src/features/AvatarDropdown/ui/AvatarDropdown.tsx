@@ -20,19 +20,6 @@ export const AvatarDropdown = () => {
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      navigate("/login");
-    } catch (error) {
-      if (error instanceof FirebaseError) {
-        messageApi.error({ content: error.message });
-      } else {
-        messageApi.error({ content: "Произошла неизвестная ошибка" });
-      }
-    }
-  };
-
   const items: DropdownItem[] = useMemo(
     () => [
       {
@@ -45,9 +32,21 @@ export const AvatarDropdown = () => {
         content: "Профиль",
         href: "/profile"
       },
-      { key: "3", content: "Выйти", onClick: handleLogout }
+      {
+        key: "3",
+        content: "Выйти",
+        onClick: () => {
+          logOut().then(() => navigate("/login")).catch((error) => {
+            if (error instanceof FirebaseError) {
+              messageApi.error({ content: error.message });
+            } else {
+              messageApi.error({ content: "Произошла неизвестная ошибка" });
+            }
+          });
+        }
+      }
     ],
-    []
+    [logOut, navigate, messageApi]
   );
 
   const triggerElement = loading ? (

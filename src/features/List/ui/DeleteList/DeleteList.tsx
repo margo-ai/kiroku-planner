@@ -62,6 +62,7 @@ export const DeleteList = (props: DeleteListProps) => {
           >
             Отмена
           </Button>
+          {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
           <Button color="success" onClick={handleDelete}>
             Удалить
           </Button>

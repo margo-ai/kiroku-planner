@@ -20,11 +20,11 @@ export const useDnd = (lists: ITaskList[], userId: string) => {
       }
 
       if (type === "TASK") {
-        handleTaskDrag(destination, source, draggableId, lists, userId);
+        void handleTaskDrag(destination, source, draggableId, lists, userId);
       }
 
       if (type === "LIST") {
-        handleListDrag(destination, source, lists, userId);
+        void handleListDrag(destination, source, lists, userId);
       }
     },
     [lists, userId]
