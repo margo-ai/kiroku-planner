@@ -28,9 +28,9 @@ export const Select = memo(
     const select = (
       <div className={cls.selectWrapper}>
         <AntdSelect
+          className={classnames("", {}, [className, cls[size]])}
           data-testid={dataTestId}
           ref={forwardedRef}
-          className={classnames("", {}, [className, cls[size]])}
           {...otherProps}
         />
       </div>
@@ -39,7 +39,7 @@ export const Select = memo(
     if (label) {
       return (
         <Stack fullWidth gap="8" justify="space-between">
-          <Typography title={label} size="s" />
+          <Typography size="s" title={label} />
           {select}
         </Stack>
       );

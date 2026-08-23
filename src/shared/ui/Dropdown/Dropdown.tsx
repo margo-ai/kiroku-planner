@@ -36,7 +36,7 @@ export const Dropdown = (props: DropdownProps) => {
   };
 
   return (
-    <div ref={popupContainerRef} className={classnames(cls.dropdownWrapper, [className])}>
+    <div className={classnames(cls.dropdownWrapper, [className])} ref={popupContainerRef}>
       <AntdDropdown
         className={cls.dropdown}
         getPopupContainer={getPopupContainer}

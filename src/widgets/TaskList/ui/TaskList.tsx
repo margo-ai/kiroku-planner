@@ -37,41 +37,41 @@ export const TaskList = memo((props: TaskListProps) => {
           ref={provided.innerRef}
           {...provided.dragHandleProps}
           align="flex-start"
-          direction="column"
           className={classnames(cls.taskListWrapper, {}, [className])}
-          onMouseOver={() => setIsDeleteButtonVisible(true)}
+          direction="column"
           onMouseLeave={() => setIsDeleteButtonVisible(false)}
+          onMouseOver={() => setIsDeleteButtonVisible(true)}
         >
           <Stack
-            data-testid="list-header"
             fullWidth
-            justify="space-between"
             className={cls.listHeader}
+            data-testid="list-header"
+            justify="space-between"
           >
-            <Typography bold size="l" title={listTitle} className={cls.title} />
+            <Typography bold className={cls.title} size="l" title={listTitle} />
             {isDeleteButtonVisible && <DeleteList listId={listId} />}
           </Stack>
 
-          <Droppable droppableId={listId} type="TASK" direction="vertical">
+          <Droppable direction="vertical" droppableId={listId} type="TASK">
             {(provided, snapshot) => (
               <ul
                 {...provided.droppableProps}
+                className={classnames(cls.taskList, { [cls.dragOver]: snapshot.isDraggingOver })}
                 data-testid="tasks-list"
                 ref={provided.innerRef}
-                className={classnames(cls.taskList, { [cls.dragOver]: snapshot.isDraggingOver })}
               >
                 {tasks.map((task, index) => (
                   <Task
+                    createdAt={task.createdAt}
+                    description={task.description}
+                    finishBy={task.finishBy}
                     index={index}
                     key={task.taskId}
-                    title={task.title}
-                    description={task.description}
+                    listId={listId}
                     priority={task.priority}
                     taskId={task.taskId}
                     taskOrder={task.taskOrder}
-                    createdAt={task.createdAt}
-                    finishBy={task.finishBy}
-                    listId={listId}
+                    title={task.title}
                   />
                 ))}
                 {provided.placeholder}

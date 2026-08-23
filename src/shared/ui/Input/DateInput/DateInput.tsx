@@ -41,14 +41,14 @@ export const DateInput = memo(
       <div className={classnames(cls.inputWrapper, { [cls.focused]: isFocused }, [cls[size]])}>
         <DatePicker
           className={cls.input}
-          name="Date"
           dateFormat="dd/MM/yyyy"
-          minDate={new Date()}
           locale={ru}
+          minDate={new Date()}
+          name="Date"
           ref={forwardedRef}
           selected={value}
-          onChange={onChange}
           onBlur={handleBlur}
+          onChange={onChange}
           onFocus={handleFocus}
         />
       </div>

@@ -25,29 +25,29 @@ const HomePage = () => {
   if (isTasksLoading) {
     return (
       <Stack fullWidth direction="column">
-        <Typography title="Загрузка задач..." Tag="h1" size="l" titleMb={24} />
+        <Typography size="l" Tag="h1" title="Загрузка задач..." titleMb={24} />
       </Stack>
     );
   }
 
   if (tasks.length > 0) {
     return (
-      <Stack data-testid="main-page" fullWidth direction="column">
-        <Typography title="Задачи на ближайшие 3 дня" Tag="h1" size="xl" titleMb={24} />
+      <Stack fullWidth data-testid="main-page" direction="column">
+        <Typography size="xl" Tag="h1" title="Задачи на ближайшие 3 дня" titleMb={24} />
         <ul className={cls.tasksList}>
           {tasks?.map((task, index) => (
             <Link key={task.taskId} to={"/board"}>
               <Task
-                isDraggable={false}
-                index={index}
-                key={task.taskId}
-                title={task.title}
+                createdAt={task.createdAt}
                 description={task.description}
+                finishBy={task.finishBy}
+                index={index}
+                isDraggable={false}
+                key={task.taskId}
                 priority={task.priority}
                 taskId={task.taskId}
                 taskOrder={task.taskOrder}
-                createdAt={task.createdAt}
-                finishBy={task.finishBy}
+                title={task.title}
               />
             </Link>
           ))}
@@ -57,8 +57,8 @@ const HomePage = () => {
   }
 
   return (
-    <Stack data-testid="main-page" fullWidth direction="column">
-      <Typography title="Срочных задач нет" Tag="h1" size="l" titleMb={24} />
+    <Stack fullWidth data-testid="main-page" direction="column">
+      <Typography size="l" Tag="h1" title="Срочных задач нет" titleMb={24} />
       <Button onClick={handleClick}>Перейти к задачам</Button>
     </Stack>
   );

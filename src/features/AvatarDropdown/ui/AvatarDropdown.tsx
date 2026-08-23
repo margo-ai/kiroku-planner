@@ -52,11 +52,11 @@ export const AvatarDropdown = () => {
 
   const triggerElement = loading ? (
     <Stack gap="12">
-      <Skeleton width={50} height={50} borderRadius="50%" />
-      <Skeleton width={100} height={20} />
+      <Skeleton borderRadius="50%" height={50} width={50} />
+      <Skeleton height={20} width={100} />
     </Stack>
   ) : (
-    <Button data-testid="avatar-button" className={cls.avatarButton} variant="clear">
+    <Button className={cls.avatarButton} data-testid="avatar-button" variant="clear">
       <Avatar size={50} src={user?.photo ?? fallbackImg} />
       <Typography dataTestId="user-name" title={user?.name ?? ""} />
     </Button>
@@ -65,8 +65,8 @@ export const AvatarDropdown = () => {
     <div>
       {contextHolder}
       <Dropdown
-        data-testid="avatar-dropdown"
         className={cls.avatarDropdown}
+        data-testid="avatar-dropdown"
         menu={items}
         trigger={["click"]}
       >

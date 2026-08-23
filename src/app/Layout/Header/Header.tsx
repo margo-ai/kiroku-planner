@@ -11,8 +11,8 @@ export const Header = () => {
   return (
     <header>
       <Stack className={cls.header} justify="space-between">
-        <Link to="/" className={cls.title}>
-          <Typography title="Kiroku" size="xl" />
+        <Link className={cls.title} to="/">
+          <Typography size="xl" title="Kiroku" />
         </Link>
         <Stack gap="24">
           <ThemeSwitcher />

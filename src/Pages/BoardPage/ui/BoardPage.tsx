@@ -33,17 +33,17 @@ const BoardPage = (props: BoardProps) => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="board" type="LIST" direction="horizontal">
+      <Droppable direction="horizontal" droppableId="board" type="LIST">
         {(provided) => (
           <Stack
             {...provided.droppableProps}
-            ref={provided.innerRef}
             align="flex-start"
-            gap="32"
             className={classnames(cls.boardPage, {}, [className])}
+            gap="32"
+            ref={provided.innerRef}
           >
             {lists?.map((taskList, index) => (
-              <TaskList key={taskList.listId} list={taskList} index={index} />
+              <TaskList index={index} key={taskList.listId} list={taskList} />
             ))}
             {provided.placeholder}
             <AddList listOrder={newListOrder} />

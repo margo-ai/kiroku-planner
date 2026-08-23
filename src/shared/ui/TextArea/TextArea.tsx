@@ -25,12 +25,12 @@ export const TextArea = memo(
 
     return (
       <textarea
-        data-testid={dataTestId}
         className={classnames(cls.textArea, { [cls.focused]: isFocused }, [className])}
-        rows={rows}
+        data-testid={dataTestId}
         ref={forwardedRef}
-        onFocus={handleFocus}
+        rows={rows}
         onBlur={handleBlur}
+        onFocus={handleFocus}
         {...otherProps}
       />
     );

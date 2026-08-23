@@ -88,9 +88,9 @@ export const Input = memo(
         <input
           className={cls.input}
           placeholder={placeholder}
+          readOnly={readonly}
           ref={forwardedRef || internalRef}
           type={type}
-          readOnly={readonly}
           value={value}
           onBlur={handleBlur}
           onChange={handleChange}
@@ -104,7 +104,7 @@ export const Input = memo(
     if (label) {
       return (
         <Stack fullWidth gap={labelInputGap} justify="space-between">
-          <Typography title={label} size="s" />
+          <Typography size="s" title={label} />
           {input}
         </Stack>
       );

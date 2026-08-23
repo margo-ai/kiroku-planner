@@ -14,11 +14,11 @@ const ErrorPage = memo(() => {
       fullWidth
       align="center"
       direction="column"
-      justify="center"
       gap="24"
+      justify="center"
       style={{ height: "80vh" }}
     >
-      <Typography titleMb={16} size="l" title="Произошла ошибка" />
+      <Typography size="l" title="Произошла ошибка" titleMb={16} />
       <Button variant="outline" onClick={handleReloadPage}>
         Обновить страницу
       </Button>

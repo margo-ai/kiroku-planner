@@ -10,7 +10,6 @@ export const useDnd = (lists: ITaskList[], userId: string) => {
   const onDragEnd = useCallback(
     (result: DropResult) => {
       const { destination, source, draggableId, type } = result;
-      console.log({ result });
 
       // Если элемент брошен не в допустимую область
       if (!destination) return;

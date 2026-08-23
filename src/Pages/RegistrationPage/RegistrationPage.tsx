@@ -4,13 +4,13 @@ import { Typography } from "@/shared/ui/Typography";
 
 export const RegistrationPage = () => {
   return (
-    <Stack gap="32" direction="column">
-      <Typography title="Регистрация" Tag="h1" size="xl" titleMb={16} />
+    <Stack direction="column" gap="32">
+      <Typography size="xl" Tag="h1" title="Регистрация" titleMb={16} />
       <AuthForm
-        type="registration"
-        submitButtonText="Зарегистрироваться"
         redirectButtonText="Уже зарегистрированы?"
         redirectPath="/login"
+        submitButtonText="Зарегистрироваться"
+        type="registration"
       />
     </Stack>
   );

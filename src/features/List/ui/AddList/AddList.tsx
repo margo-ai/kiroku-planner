@@ -81,14 +81,14 @@ export const AddList = memo((props: AddListProps) => {
     <>
       {contextHolder}
       <Button
+        className={cls.addListBtn}
         data-testid="add-list-button"
         variant="clear"
         onClick={() => setIsModalOpen(true)}
-        className={cls.addListBtn}
       >
         <PlusIcon />
       </Button>
-      <Modal dataTestId="add-list-modal" onClose={handleCloseModal} isOpen={isModalOpen}>
+      <Modal dataTestId="add-list-modal" isOpen={isModalOpen} onClose={handleCloseModal}>
         <Typography title="Создание списка" titleMb={24} />
         <form className={cls.form} name="Add list form" onSubmit={handleSubmit(onSubmit)}>
           <Controller

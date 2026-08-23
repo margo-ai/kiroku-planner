@@ -53,8 +53,8 @@ export const Typography = memo((props: TypographyProps) => {
 
   return (
     <div
-      data-testid={dataTestId}
       className={classnames(cls.typography, { [cls.bold]: bold }, additionalClasses)}
+      data-testid={dataTestId}
     >
       {title && (
         <Tag className={classnames(cls.title)} style={{ marginBottom: `${titleMb}px` }}>

@@ -82,13 +82,13 @@ const ProfilePage = () => {
     <Stack fullWidth className={cls.profilePage} direction="column" gap="24">
       {contextHolder}
       <Stack className={cls.header} gap="12" justify="space-between">
-        <Typography bold title="Данные пользователя" Tag="h1" size="l" />
+        <Typography bold size="l" Tag="h1" title="Данные пользователя" />
         {isEditMode ? (
           <Stack gap="12">
             <Button color="error" onClick={handleCancel}>
               Отмена
             </Button>
-            <Button color="success" type="submit" form="profile-form">
+            <Button color="success" form="profile-form" type="submit">
               Сохранить
             </Button>
           </Stack>
@@ -98,8 +98,8 @@ const ProfilePage = () => {
       </Stack>
 
       <form
-        id="profile-form"
         className={cls.form}
+        id="profile-form"
         name="Edit profile form"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -112,9 +112,9 @@ const ProfilePage = () => {
               <Input
                 {...field}
                 data-testid="name-input"
-                readonly={!isEditMode}
                 labelInputGap="32"
                 placeholder="Имя пользователя"
+                readonly={!isEditMode}
                 validateErrorMessage={errors.name?.message}
               />
             )}
@@ -130,9 +130,9 @@ const ProfilePage = () => {
               <Input
                 {...field}
                 data-testid="photo-input"
-                readonly={!isEditMode}
                 labelInputGap="32"
                 placeholder="Photo URL"
+                readonly={!isEditMode}
                 validateErrorMessage={errors.photoUrl?.message}
               />
             )}

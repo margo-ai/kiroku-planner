@@ -45,9 +45,9 @@ export const DeleteList = (props: DeleteListProps) => {
     <>
       {contextHolder}
       <Button
+        className={cls.deleteListBtn}
         data-testid="delete-list-button"
         variant="clear"
-        className={cls.deleteListBtn}
         onClick={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
       >
         <DeleteIcon />
@@ -56,8 +56,8 @@ export const DeleteList = (props: DeleteListProps) => {
         <Typography size="l" title="Удалить список?" titleMb={24} />
         <Stack gap="24">
           <Button
-            variant="outline"
             color="error"
+            variant="outline"
             onClick={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
           >
             Отмена

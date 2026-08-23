@@ -7,12 +7,12 @@ import cls from "./LoginPage.module.scss";
 export const LoginPage = () => {
   return (
     <Stack className={cls.loginPage} direction="column" gap="32">
-      <Typography titleMb={16} title="Вход" Tag="h1" size="xl" align="center" />
+      <Typography align="center" size="xl" Tag="h1" title="Вход" titleMb={16} />
       <AuthForm
-        type="login"
-        submitButtonText="Войти"
         redirectButtonText="Вы у нас впервые?"
         redirectPath="/registration"
+        submitButtonText="Войти"
+        type="login"
       />
     </Stack>
   );

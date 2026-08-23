@@ -15,7 +15,7 @@ const NotFoundPage = ({ className }: NotFoundPageProps) => {
   const navigate = useNavigate();
 
   return (
-    <Stack direction="column" className={classnames(cls.notFoundPage, {}, [className])}>
+    <Stack className={classnames(cls.notFoundPage, {}, [className])} direction="column">
       <Typography align="center" size="l" title="Страница не найдена" titleMb={16} />
       <Button variant="outline" onClick={() => navigate("/")}>
         Вернуться на главную страницу

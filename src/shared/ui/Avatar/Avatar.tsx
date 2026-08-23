@@ -15,6 +15,6 @@ export const Avatar = (props: AvatarProps) => {
   const styles = useMemo<CSSProperties>(() => ({ width: size, height: size }), [size]);
 
   return (
-    <img style={styles} className={classnames(cls.avatar, [className])} src={src} alt="Avatar" />
+    <img alt="Avatar" className={classnames(cls.avatar, [className])} src={src} style={styles} />
   );
 };

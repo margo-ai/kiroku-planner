@@ -89,23 +89,23 @@ export const Task = memo((props: TaskProps) => {
                   [cls.mouseOver]: isMouseOver
                 })}
                 onClick={() => setIsEditTaskModalOpen(true)}
-                onMouseOver={() => setIsMouseOver(true)}
                 onMouseOut={() => setIsMouseOver(false)}
+                onMouseOver={() => setIsMouseOver(true)}
               >
-                <Stack justify="space-between" className={cls.priorityAndCreatedDate}>
+                <Stack className={cls.priorityAndCreatedDate} justify="space-between">
                   <Typography
                     className={classnames(cls.priority, cls[priorityClass])}
-                    title={priority}
                     size="s"
+                    title={priority}
                   />
                   <Typography
                     className={cls.createdAt}
-                    title={stringCreatedDate}
                     size="s"
+                    title={stringCreatedDate}
                     titleMb={24}
                   />
                 </Stack>
-                <Typography className={cls.titleAndDescr} title={title} text={description} />
+                <Typography className={cls.titleAndDescr} text={description} title={title} />
 
                 <Typography size="s" title={`Завершить к ${stringFinishDate}`} />
               </li>
@@ -114,10 +114,10 @@ export const Task = memo((props: TaskProps) => {
         </Draggable>
 
         <EditTaskModal
-          isModalOpen={isEditTaskModalOpen}
           fields={taskFields}
-          taskId={taskId}
+          isModalOpen={isEditTaskModalOpen}
           listId={listId || ""}
+          taskId={taskId}
           onClose={() => setIsEditTaskModalOpen(false)}
         />
       </>
@@ -127,18 +127,18 @@ export const Task = memo((props: TaskProps) => {
     <li
       className={classnames(cls.task)}
       onClick={() => setIsEditTaskModalOpen(true)}
-      onMouseOver={() => setIsMouseOver(true)}
       onMouseOut={() => setIsMouseOver(false)}
+      onMouseOver={() => setIsMouseOver(true)}
     >
-      <Stack justify="space-between" className={cls.priorityAndCreatedDate}>
+      <Stack className={cls.priorityAndCreatedDate} justify="space-between">
         <Typography
           className={classnames(cls.priority, cls[priorityClass])}
-          title={priority}
           size="s"
+          title={priority}
         />
-        <Typography className={cls.createdAt} title={stringCreatedDate} size="s" titleMb={24} />
+        <Typography className={cls.createdAt} size="s" title={stringCreatedDate} titleMb={24} />
       </Stack>
-      <Typography className={cls.titleAndDescr} title={title} text={description} />
+      <Typography className={cls.titleAndDescr} text={description} title={title} />
 
       <Typography size="s" title={`Завершить к ${stringFinishDate}`} />
     </li>

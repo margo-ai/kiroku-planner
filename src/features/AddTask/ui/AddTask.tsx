@@ -105,14 +105,14 @@ export const AddTask = memo((props: AddTaskProps) => {
     <>
       {contextHolder}
       <Button
+        className={cls.addTaskBtn}
         data-testid="add-task-button"
         variant="clear"
         onClick={() => setIsModalOpen(true)}
-        className={cls.addTaskBtn}
       >
         <PlusIcon />
       </Button>
-      <Modal dataTestId="add-task-modal" onClose={handleClose} isOpen={isModalOpen}>
+      <Modal dataTestId="add-task-modal" isOpen={isModalOpen} onClose={handleClose}>
         <Typography title="Добавление задачи" titleMb={24} />
         <form className={cls.form} name="Add task form" onSubmit={handleSubmit(onSubmit)}>
           <Controller

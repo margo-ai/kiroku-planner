@@ -86,7 +86,7 @@ export const AuthForm = (props: AuthFormProps) => {
   if (error) {
     return (
       <div className={cls.formWrapper}>
-        <Typography titleMb={16} size="l" title={`Произошла ошибка: ${error}`} />
+        <Typography size="l" title={`Произошла ошибка: ${error}`} titleMb={16} />
         <Button variant="outline" onClick={() => window.location.reload()}>
           Обновить страницу
         </Button>
@@ -97,8 +97,8 @@ export const AuthForm = (props: AuthFormProps) => {
   return (
     <div className={cls.formWrapper}>
       <form
-        data-testid="auth-form"
         className={cls.form}
+        data-testid="auth-form"
         name="Auth form"
         onSubmit={handleSubmit(onSubmit)}
       >

@@ -58,5 +58,5 @@ test("Проверка перехода на доску с задачами", as
   await page.waitForURL(`${BASE_URL}board`, { timeout: 10000 });
   await expect(page.getByTestId("add-list-button")).toBeVisible();
   // await page.setViewportSize({ width: 1920, height: 1080 });
-  // await expect(page).toHaveScreenshot();
+  await expect(page).toHaveScreenshot();
 });
