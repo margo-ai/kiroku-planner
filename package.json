@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
     "playwright:ui": "playwright test --ui",
     "firebase:emulators": "npx firebase emulators:start"
   },
