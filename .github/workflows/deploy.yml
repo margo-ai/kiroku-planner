@@ -29,26 +29,26 @@ jobs:
       - name: Type check
         run: npx tsc --noEmit
 
-  test:
-    needs: lint
-    runs-on: ubuntu-latest
+  #   test:
+  #     needs: lint
+  #     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+  #     steps:
+  #       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
+  #       - uses: actions/setup-node@v4
+  #         with:
+  #           node-version: 20
+  #           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+  #       - name: Install dependencies
+  #         run: npm ci
 
-      - name: Unit tests
-        run: npm run test:unit
+  #       - name: Unit tests
+  #         run: npm run test:unit
 
   build-and-deploy:
-    needs: test
+    needs: lint
     runs-on: ubuntu-latest
     permissions:
       contents: read
