@@ -54,14 +54,6 @@ export const Task = memo((props: TaskProps) => {
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  const menuItems: { key: string; content: string; onClick: () => void }[] = [{ key: "1", content: "Удалить задачу", onClick: handleDeleteTask }];
-
-  const taskFields = useMemo(
-    () => ({ title, priority, description, finishBy: new Date(finishBy) }),
-    [title, priority, description, finishBy]
-  );
-
   const handleDeleteTask = async () => {
     try {
       await deleteTask({ listId: listId || "y", taskId, userId: user?.uid || "" }).unwrap();
@@ -71,6 +63,14 @@ export const Task = memo((props: TaskProps) => {
       messageApi.error({ content: "Произошла неизвестная ошибка" });
     }
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  const menuItems: { key: string; content: string; onClick: () => void }[] = [{ key: "1", content: "Удалить задачу", onClick: handleDeleteTask }];
+
+  const taskFields = useMemo(
+    () => ({ title, priority, description, finishBy: new Date(finishBy) }),
+    [title, priority, description, finishBy]
+  );
 
   if (isDraggable) {
     return (
